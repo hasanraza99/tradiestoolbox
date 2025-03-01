@@ -15,6 +15,8 @@ build_property.RootNamespace = TradiesToolbox
 build_property.ProjectDir = C:\Users\ahraz\Documents\FMAD\TradiesToolbox\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
 
 [C:/Users/ahraz/Documents/FMAD/TradiesToolbox/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
@@ -51,3 +53,9 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
+
+[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/SplashPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Views.SplashPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\SplashPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\SplashPage.xaml
