@@ -36,12 +36,6 @@ build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.MainPage.xa
 build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
 build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
 
-[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Models/SplashPage.xaml]
-build_metadata.AdditionalFiles.GenKind = Xaml
-build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Models.SplashPage.xaml
-build_metadata.AdditionalFiles.TargetPath = Models\SplashPage.xaml
-build_metadata.AdditionalFiles.RelativePath = Models\SplashPage.xaml
-
 [C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Resources.Styles.Colors.xaml
