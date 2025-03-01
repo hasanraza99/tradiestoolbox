@@ -24,14 +24,13 @@ namespace TradiesToolbox.Views
 
         /* OnAppearing is a method that is called when the page is about to appear on the screen
          * Protected Override means we're extended the base class's method */
-        protected override async Task OnAppearing()
+        protected override Task OnAppearing()
         {
             // Always call the base implementation of the method first to ensure proper execution order
             base.OnAppearing();
 
-            /* Call the Initialise method of the ViewModel
-             * This will start the timer and handle navigation when it completes */
-            await _viewModel.Initialise();
+            // start the initialisation without awaiting the result
+            _viewModel.Initialise().ConfigureAwait(false);
         }
     }
 }
