@@ -20,7 +20,7 @@ namespace TradiesToolbox.ViewModels
 
         /* This method will be called when the splash page appears
          * It's async because it uses await to create a non-blocking delay */
-        public async Task Initialise()
+        public async Task Initialize()
         {
             /* The splash screen needs to be visible for a short time before navigating to the login page
              * This delay is achieved using Task.Delay() which creates a non-blocking delay
@@ -37,9 +37,7 @@ namespace TradiesToolbox.ViewModels
         private async Task NavigateToLogin()
         {
             // Push the login page onto the navigation stack
-            // await Application.Current.MainPage.Navigation.PushAsync(new Views.LoginPage())
-
-            Console.WriteLine("Navigate to login page");
+            await Application.Current.MainPage.Navigation.PushAsync(new Views.LoginPage());
         }
     }
 }
