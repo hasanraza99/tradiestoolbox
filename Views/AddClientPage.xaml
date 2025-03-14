@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:TradiesToolbox.ViewModels"
+             x:Class="TradiesToolbox.Views.AddClientPage"
+             Title="Add Client">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+            <!-- Name -->
+            <Label Text="Client Name" FontAttributes="Bold"/>
+            <Entry Placeholder="Enter client name"
+                   Text="{Binding Client.Name}" />
+
+            <!-- Email -->
+            <Label Text="Email" FontAttributes="Bold"/>
+            <Entry Placeholder="Enter email"
+                   Keyboard="Email"
+                   Text="{Binding Client.Email}" />
+
+            <!-- Phone -->
+            <Label Text="Phone" FontAttributes="Bold"/>
+            <Entry Placeholder="Enter phone number"
+                   Keyboard="Telephone"
+                   Text="{Binding Client.Phone}" />
+
+            <!-- Address -->
+            <Label Text="Address" FontAttributes="Bold"/>
+            <Editor Placeholder="Enter address"
+                    Text="{Binding Client.Address}" />
+
+            <!-- Notes -->
+            <Label Text="Notes" FontAttributes="Bold"/>
+            <Editor Placeholder="Enter any additional notes"
+                    Text="{Binding Client.Notes}" />
+
+            <!-- Is Active -->
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Label Text="Active Client" FontAttributes="Bold" VerticalOptions="Center"/>
+                <Switch IsToggled="{Binding Client.IsActive}" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <!-- Save & Cancel Buttons -->
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Button Text="Save"
+                        Command="{Binding SaveClientCommand}"
+                        BackgroundColor="#3E5C76"
+                        TextColor="White"
+                        CornerRadius="8"
+                        HorizontalOptions="FillAndExpand" />
+
+                <Button Text="Cancel"
+                        Command="{Binding CancelCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="#3E5C76"
+                        BorderColor="#3E5C76"
+                        BorderWidth="1"
+                        CornerRadius="8"
+                        HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

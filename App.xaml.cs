@@ -1,4 +1,7 @@
-﻿namespace TradiesToolbox
+﻿using Microsoft.Maui.Storage;
+using TradiesToolbox.Views;
+
+namespace TradiesToolbox
 {
     public partial class App : Application
     {
@@ -6,7 +9,13 @@
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new Views.SplashPage());
+            // Show SplashPage first
+            MainPage = new SplashPage();
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
         }
     }
 }

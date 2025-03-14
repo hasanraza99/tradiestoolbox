@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TradiesToolbox.Views.MorePage"
+             Title="More">
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+            <Label Text="Settings and More" 
+                   FontSize="22" 
+                   FontAttributes="Bold"
+                   Margin="0,0,0,20" />
+
+            <Frame Padding="15" HasShadow="True" CornerRadius="10">
+                <StackLayout Spacing="20">
+                    <Button Text="Settings"
+                            BackgroundColor="Transparent"
+                            TextColor="#3E5C76"
+                            BorderColor="#3E5C76"
+                            BorderWidth="1"
+                            CornerRadius="8"
+                            HorizontalOptions="Fill" />
+
+                    <Button Text="Invoices"
+                            BackgroundColor="Transparent"
+                            TextColor="#3E5C76"
+                            BorderColor="#3E5C76"
+                            BorderWidth="1"
+                            CornerRadius="8"
+                            HorizontalOptions="Fill" />
+
+                    <Button Text="Profile"
+                            BackgroundColor="Transparent"
+                            TextColor="#3E5C76"
+                            BorderColor="#3E5C76"
+                            BorderWidth="1"
+                            CornerRadius="8"
+                            HorizontalOptions="Fill" />
+
+                    <Button Text="Help &amp; Support"
+                            BackgroundColor="Transparent"
+                            TextColor="#3E5C76"
+                            BorderColor="#3E5C76"
+                            BorderWidth="1"
+                            CornerRadius="8"
+                            HorizontalOptions="Fill" />
+
+                    <Button Text="Log Out"
+                            BackgroundColor="#DC3545"
+                            TextColor="White"
+                            CornerRadius="8"
+                            HorizontalOptions="Fill" />
+                </StackLayout>
+            </Frame>
+
+            <Frame Padding="15" HasShadow="True" CornerRadius="10">
+                <StackLayout>
+                    <Label Text="App Version" FontAttributes="Bold" />
+                    <Label Text="Tradies Toolbox v1.0.0" TextColor="Gray" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

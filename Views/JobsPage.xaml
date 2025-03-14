@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:TradiesToolbox.ViewModels"
+             xmlns:models="clr-namespace:TradiesToolbox.Models"
+             x:Class="TradiesToolbox.Views.JobsPage"
+             Title="{Binding Title}">
+
+    <Grid RowDefinitions="Auto,*">
+        <!-- Filter bar for job status and date -->
+        <HorizontalStackLayout Padding="20,10" Spacing="10">
+            <!-- Status Filter -->
+            <Frame Padding="10,5" CornerRadius="20" BorderColor="LightGray" HasShadow="False">
+                <Picker Title="All Statuses" 
+                        ItemsSource="{Binding StatusFilters}"
+                        SelectedItem="{Binding SelectedStatusFilter}"
+                        WidthRequest="150" />
+            </Frame>
+
+            <!-- Date Filter -->
+            <Frame Padding="10,5" CornerRadius="20" BorderColor="LightGray" HasShadow="False">
+                <Picker Title="All Dates" 
+                        ItemsSource="{Binding DateFilters}"
+                        SelectedItem="{Binding SelectedDateFilter}"
+                        WidthRequest="150" />
+            </Frame>
+
+            <!-- Add Job Button -->
+            <Button Text="+"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    Command="{Binding AddJobCommand}"
+                    BackgroundColor="#3E5C76"
+                    TextColor="White"
+                    CornerRadius="20"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    Padding="0"
+                    HorizontalOptions="EndAndExpand" />
+        </HorizontalStackLayout>
+
+        <!-- Job List -->
+        <RefreshView Grid.Row="1" IsRefreshing="{Binding IsBusy}" Command="{Binding RefreshCommand}">
+            <CollectionView ItemsSource="{Binding Jobs}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding JobSelectedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
+
+                <CollectionView.EmptyView>
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20">
+                        <Image Source="no_jobs.png" HeightRequest="100" Opacity="0.5" Margin="0,0,0,20"/>
+                        <Label Text="No jobs found" FontSize="18" TextColor="Gray" HorizontalOptions="Center"/>
+                        <Label Text="Add your first job or adjust your filters" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Job">
+                        <Frame Margin="20,10" Padding="15" HasShadow="True" CornerRadius="10">
+                            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                                <!-- Job Title and Status -->
+                                <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
+
+                                <!-- Job Status Badge -->
+                                <Frame Grid.Column="1" Padding="8,3" CornerRadius="10" BackgroundColor="{Binding Status, Converter={StaticResource JobStatusToColorConverter}}" HasShadow="False">
+                                    <Label Text="{Binding StatusDisplay}" TextColor="White" FontSize="12" FontAttributes="Bold"/>
+                                </Frame>
+
+                                <!-- Client and Location -->
+                                <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="5" Margin="0,5,0,0">
+                                    <Label Text="{Binding ClientName}" TextColor="#3E5C76" FontAttributes="Bold"/>
+                                    <Label Text="•" TextColor="Gray"/>
+                                    <Label Text="{Binding Location}" TextColor="Gray" LineBreakMode="TailTruncation"/>
+                                </StackLayout>
+
+                                <!-- Schedule Details -->
+                                <StackLayout Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="5" Margin="0,5,0,0">
+                                    <Image Source="calendar_icon.png" WidthRequest="16" HeightRequest="16"/>
+                                    <Label Text="{Binding ScheduleDisplay}" TextColor="Gray" VerticalOptions="Center"/>
+                                    <Label Text="•" TextColor="Gray" VerticalOptions="Center"/>
+                                    <Label Text="{Binding DurationDisplay}" TextColor="Gray" VerticalOptions="Center"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator Grid.RowSpan="2" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" Color="#3E5C76"/>
+    </Grid>
+</ContentPage>

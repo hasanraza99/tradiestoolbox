@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:TradiesToolbox.ViewModels"
+             x:Class="TradiesToolbox.Views.ClientDetailPage"
+             Title="{Binding Title}">
+
+    <!-- Toolbar with Edit Button -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" 
+                     Command="{Binding EditCommand}" 
+                     IconImageSource="edit_icon.png" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+            <!-- Client Header -->
+            <Frame Padding="15" HasShadow="True" CornerRadius="10">
+                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                    <!-- Client Name -->
+                    <Label Text="{Binding Client.Name}" 
+                           FontSize="24" 
+                           FontAttributes="Bold"
+                           LineBreakMode="TailTruncation" />
+
+                    <!-- Status Indicator -->
+                    <Frame Grid.Column="1"
+                           Padding="8,3"
+                           CornerRadius="10"
+                           BackgroundColor="{Binding Client.IsActive, Converter={StaticResource BoolToColorConverter}}"
+                           HasShadow="False">
+                        <Label Text="{Binding Client.IsActive, Converter={StaticResource BoolToStatusConverter}}"
+                               TextColor="White"
+                               FontSize="12"
+                               FontAttributes="Bold" />
+                    </Frame>
+
+                    <!-- Created Date -->
+                    <Label Grid.Row="1" Grid.ColumnSpan="2"
+                           Text="{Binding Client.CreatedDate, StringFormat='Client since {0:MMM yyyy}'}"
+                           TextColor="Gray"
+                           FontSize="14"
+                           Margin="0,5,0,0" />
+                </Grid>
+            </Frame>
+
+            <!-- Contact Information Section -->
+            <Label Text="CONTACT INFORMATION" 
+                   FontAttributes="Bold" 
+                   Margin="0,10,0,5" />
+
+            <Frame Padding="15" HasShadow="True" CornerRadius="10">
+                <StackLayout Spacing="15">
+                    <!-- Phone -->
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Image Source="phone_icon.png"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               VerticalOptions="Center" />
+
+                        <Label Grid.Column="1"
+                               Text="{Binding Client.Phone}"
+                               VerticalOptions="Center"
+                               Margin="15,0,0,0" />
+
+                        <ImageButton Grid.Column="2"
+                                    Source="call_icon.png"
+                                    Command="{Binding CallCommand}"
+                                    WidthRequest="30"
+                                    HeightRequest="30"
+                                    BackgroundColor="Transparent" />
+                    </Grid>
+
+                    <!-- Separator Line -->
+                    <BoxView HeightRequest="1" 
+                             Color="LightGray" 
+                             HorizontalOptions="Fill" />
+
+                    <!-- Email -->
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Image Source="email_icon.png"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               VerticalOptions="Center" />
+
+                        <Label Grid.Column="1"
+                               Text="{Binding Client.Email}"
+                               VerticalOptions="Center"
+                               Margin="15,0,0,0" />
+
+                        <ImageButton Grid.Column="2"
+                                    Source="email_send_icon.png"
+                                    Command="{Binding EmailCommand}"
+                                    WidthRequest="30"
+                                    HeightRequest="30"
+                                    BackgroundColor="Transparent" />
+                    </Grid>
+
+                    <!-- Separator Line -->
+                    <BoxView HeightRequest="1" 
+                             Color="LightGray" 
+                             HorizontalOptions="Fill" />
+
+                    <!-- Address -->
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Image Source="location_icon.png"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               VerticalOptions="Center" />
+
+                        <Label Grid.Column="1"
+                               Text="{Binding Client.Address}"
+                               VerticalOptions="Center"
+                               Margin="15,0,0,0" />
+
+                        <ImageButton Grid.Column="2"
+                                    Source="map_icon.png"
+                                    Command="{Binding MapCommand}"
+                                    WidthRequest="30"
+                                    HeightRequest="30"
+                                    BackgroundColor="Transparent" />
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <!-- Notes Section -->
+            <Label Text="NOTES" 
+                   FontAttributes="Bold" 
+                   Margin="0,10,0,5" />
+
+            <Frame Padding="15" HasShadow="True" CornerRadius="10">
+                <Label Text="{Binding Client.Notes}" 
+                       LineBreakMode="WordWrap" />
+            </Frame>
+
+            <!-- Client Activity Section -->
+            <Label Text="RECENT ACTIVITY" 
+                   FontAttributes="Bold" 
+                   Margin="0,10,0,5" />
+
+            <Frame Padding="15" HasShadow="True" CornerRadius="10">
+                <StackLayout BindableLayout.ItemsSource="{Binding ClientActivity}" Spacing="15">
+                    <BindableLayout.EmptyView>
+                        <Label Text="No recent activity" 
+                               HorizontalOptions="Center"
+                               TextColor="Gray" />
+                    </BindableLayout.EmptyView>
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Ellipse Fill="{Binding Color}" 
+                                         WidthRequest="10" 
+                                         HeightRequest="10" 
+                                         VerticalOptions="Center" />
+
+                                <Label Grid.Column="1"
+                                       Text="{Binding Description}"
+                                       VerticalOptions="Center"
+                                       Margin="10,0,0,0" />
+
+                                <Label Grid.Column="2"
+                                       Text="{Binding Date, StringFormat='{0:dd/MM/yy}'}"
+                                       TextColor="Gray"
+                                       FontSize="14"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </Frame>
+
+            <!-- Action Buttons -->
+            <StackLayout Orientation="Horizontal" Spacing="10" Margin="0,10,0,0">
+                <Button Text="New Job" 
+                        Command="{Binding NewJobCommand}"
+                        BackgroundColor="#3E5C76"
+                        TextColor="White"
+                        CornerRadius="8"
+                        HorizontalOptions="FillAndExpand" />
+
+                <Button Text="New Quote" 
+                        Command="{Binding NewQuoteCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="#3E5C76"
+                        BorderColor="#3E5C76"
+                        BorderWidth="1"
+                        CornerRadius="8"
+                        HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TradiesToolbox.Views.DashboardPage"
+             Title="{Binding Title}">
+
+    <!-- ScrollView allows the content to be scrollable if it exceeds screen height -->
+    <ScrollView>
+        <!-- Main container for all dashboard elements -->
+        <StackLayout Padding="20" Spacing="15">
+
+            <!-- Welcome section -->
+            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+                <StackLayout>
+                    <!-- Welcome message dynamically bound to the ViewModel -->
+                    <Label Text="{Binding WelcomeMessage}" 
+                           FontSize="24" 
+                           FontAttributes="Bold" />
+
+                    <!-- Subtitle for additional context -->
+                    <Label Text="Here's your overview for today" 
+                           TextColor="Gray"
+                           Margin="0,5,0,15" />
+
+                    <!-- Container for primary dashboard actions -->
+                    <HorizontalStackLayout Spacing="10">
+                        <!-- Button for adding a new job -->
+                        <Button Text="+ New Job" 
+                                Command="{Binding NewJobCommand}"
+                                BackgroundColor="#3E5C76"
+                                TextColor="White"
+                                CornerRadius="5" />
+
+                        <!-- Button for adding a new quote -->
+                        <Button Text="+ New Quote" 
+                                Command="{Binding NewQuoteCommand}"
+                                BackgroundColor="Transparent"
+                                TextColor="#3E5C76"
+                                BorderColor="#3E5C76"
+                                BorderWidth="1"
+                                CornerRadius="5" />
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!-- Today's Schedule section header -->
+            <Label Text="TODAY'S SCHEDULE" 
+                   FontAttributes="Bold" 
+                   Margin="0,10,0,5" />
+
+            <!-- Frame for displaying scheduled jobs -->
+            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+                <StackLayout Spacing="10">
+                    <!-- Header displaying job count and navigation to all jobs -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <!-- Displays the number of scheduled jobs -->
+                        <Label Text="{Binding TodayJobsCount, StringFormat='{0} jobs scheduled'}" 
+                               TextColor="Gray" 
+                               VerticalOptions="Center" />
+
+                        <!-- Link to view all jobs with a tap gesture -->
+                        <Label Grid.Column="1" 
+                               Text="View All" 
+                               TextColor="#3E5C76" 
+                               VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ViewAllJobsCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+                    <!-- List of jobs for today, dynamically populated from ViewModel -->
+                    <StackLayout BindableLayout.ItemsSource="{Binding TodayJobs}" Spacing="10">
+                        <BindableLayout.EmptyView>
+                            <!-- Message displayed when no jobs are scheduled -->
+                            <Label Text="No jobs scheduled for today"
+                                   HorizontalOptions="Center"
+                                   TextColor="Gray"
+                                   Margin="0,20" />
+                        </BindableLayout.EmptyView>
+
+                        <!-- Template for each job item -->
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <!-- Frame container for job details -->
+                                <Frame Padding="10" 
+                                       HasShadow="False" 
+                                       BorderColor="LightGray"
+                                       CornerRadius="5">
+
+                                    <!-- Grid layout for displaying job details -->
+                                    <Grid ColumnDefinitions="Auto,*,Auto" 
+                                          RowDefinitions="Auto,Auto">
+
+                                        <!-- Job time display -->
+                                        <Label Text="{Binding Time}" 
+                                               Grid.Row="0" 
+                                               Grid.Column="0"
+                                               TextColor="Gray"
+                                               FontSize="14"
+                                               Margin="0,0,10,0" />
+
+                                        <!-- Job title -->
+                                        <Label Text="{Binding Title}" 
+                                               Grid.Row="0" 
+                                               Grid.Column="1"
+                                               FontAttributes="Bold" />
+
+                                        <!-- Job duration -->
+                                        <Label Text="{Binding Duration}" 
+                                               Grid.Row="0" 
+                                               Grid.Column="2"
+                                               TextColor="Gray"
+                                               FontSize="14" />
+
+                                        <!-- Client information -->
+                                        <Label Text="{Binding ClientInfo}" 
+                                               Grid.Row="1" 
+                                               Grid.Column="1"
+                                               TextColor="Gray"
+                                               FontSize="14" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:TradiesToolbox.ViewModels"
+             x:Class="TradiesToolbox.Views.QuoteDetailPage"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" 
+                     Command="{Binding EditCommand}" 
+                     IconImageSource="edit_icon.png" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+            <!-- Quote Header -->
+            <Frame Padding="15" CornerRadius="10" HasShadow="True" BackgroundColor="#3E5C76">
+                <StackLayout>
+                    <Label Text="{Binding Quote.QuoteNumber}" 
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="White" />
+                    <Label Text="{Binding Quote.StatusDisplay}" 
+                           TextColor="White" 
+                           FontSize="12"
+                           FontAttributes="Bold"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Quote Details -->
+            <Label Text="QUOTE DETAILS" FontAttributes="Bold" Margin="0,10,0,5" />
+            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+                <StackLayout>
+                    <Label Text="{Binding Quote.JobTitle}" FontSize="18" FontAttributes="Bold" />
+                    <Label Text="{Binding Quote.JobDescription}" TextColor="Gray" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Total Section -->
+            <Label Text="TOTAL" FontAttributes="Bold" Margin="0,10,0,5" />
+            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+                <StackLayout>
+                    <Label Text="{Binding Quote.Total, StringFormat='£{0:N2}'}"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#3E5C76"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Action Button -->
+            <Button Text="Send Quote"
+                    Command="{Binding SendQuoteCommand}"
+                    BackgroundColor="#3E5C76"
+                    TextColor="White"
+                    CornerRadius="8"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

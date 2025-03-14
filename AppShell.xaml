@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="TradiesToolbox.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:TradiesToolbox"
-    Shell.FlyoutBehavior="Disabled"
-    Title="TradiesToolbox">
+<Shell x:Class="TradiesToolbox.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:TradiesToolbox.Views"
+       Shell.FlyoutBehavior="Disabled"
+       Title="Tradies Toolbox">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="#3E5C76" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="White" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="#3E5C76" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95A5A6" />
+                <Setter Property="Shell.TabBarTitleColor" Value="#3E5C76" />
+            </Style>
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="ShellItem" />
+        </ResourceDictionary>
+    </Shell.Resources>
 
+    <TabBar>
+        <Tab Title="Dashboard" Icon="dashboard_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate views:DashboardPage}" />
+        </Tab>
+
+        <Tab Title="Jobs" Icon="jobs_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate views:JobsPage}" />
+        </Tab>
+
+        <Tab Title="Quotes" Icon="quotes_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate views:QuotesPage}" />
+        </Tab>
+
+        <Tab Title="Clients" Icon="clients_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate views:ClientsPage}" />
+        </Tab>
+
+        <Tab Title="More" Icon="more_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate views:MorePage}" />
+        </Tab>
+    </TabBar>
 </Shell>

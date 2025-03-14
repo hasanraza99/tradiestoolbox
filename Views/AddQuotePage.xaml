@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:TradiesToolbox.ViewModels"
+             x:Class="TradiesToolbox.Views.AddQuotePage"
+             Title="Add Quote">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+            <!-- Quote Number -->
+            <Label Text="Quote Number" FontAttributes="Bold"/>
+            <Entry Placeholder="Enter quote number"
+                   Text="{Binding Quote.QuoteNumber}" />
+
+            <!-- Client Name -->
+            <Label Text="Client Name" FontAttributes="Bold"/>
+            <Picker ItemsSource="{Binding Clients}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding SelectedClient}"
+                    Title="Select a client"/>
+
+            <!-- Job Title -->
+            <Label Text="Job Title" FontAttributes="Bold"/>
+            <Entry Placeholder="Enter job title"
+                   Text="{Binding Quote.JobTitle}" />
+
+            <!-- Job Description -->
+            <Label Text="Job Description" FontAttributes="Bold"/>
+            <Editor Placeholder="Enter job description"
+                    Text="{Binding Quote.JobDescription}" />
+
+            <!-- Job Location -->
+            <Label Text="Job Location" FontAttributes="Bold"/>
+            <Entry Placeholder="Enter job location"
+                   Text="{Binding Quote.JobLocation}" />
+
+            <!-- Total Amount -->
+            <Label Text="Total Amount (£)" FontAttributes="Bold"/>
+            <Entry Placeholder="Enter total amount"
+                   Keyboard="Numeric"
+                   Text="{Binding Quote.Total, StringFormat='{0:N2}'}"/>
+
+            <!-- Status -->
+            <Label Text="Status" FontAttributes="Bold"/>
+            <Picker ItemsSource="{Binding Statuses}"
+                    SelectedItem="{Binding SelectedStatus}"
+                    Title="Select status"/>
+
+            <!-- Save & Cancel Buttons -->
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Button Text="Save"
+                        Command="{Binding SaveQuoteCommand}"
+                        BackgroundColor="#3E5C76"
+                        TextColor="White"
+                        CornerRadius="8"
+                        HorizontalOptions="FillAndExpand" />
+
+                <Button Text="Cancel"
+                        Command="{Binding CancelCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="#3E5C76"
+                        BorderColor="#3E5C76"
+                        BorderWidth="1"
+                        CornerRadius="8"
+                        HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -2,20 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TradiesToolbox.Views.SplashPage"
-             Title="SplashPage"
              BackgroundColor="#BF4011">
-    <StackLayout
-        VerticalOptions="Center"
-        HorizontalOptions="Center">
 
-        <Image
-            Source="logo.png"
-            HeightRequest="200"
-            WidthRequest="200" />
+    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="20">
 
-        <ActivityIndicator
-            IsRunning="True"
-            Color="White"
-            Margin="0,30,0,0"/>
+        <!-- Application Logo -->
+        <Image Source="logo.png" HeightRequest="200" WidthRequest="200" />
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator IsRunning="True" Color="White" />
+
     </StackLayout>
+
 </ContentPage>

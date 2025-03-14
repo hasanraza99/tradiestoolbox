@@ -52,11 +52,77 @@ build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Resources.S
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
 
+[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/AddClientPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Views.AddClientPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\AddClientPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\AddClientPage.xaml
+
+[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/AddJobPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Views.AddJobPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\AddJobPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\AddJobPage.xaml
+
+[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/AddQuotePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Views.AddQuotePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\AddQuotePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\AddQuotePage.xaml
+
+[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/ClientDetailPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Views.ClientDetailPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\ClientDetailPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\ClientDetailPage.xaml
+
+[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/ClientsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Views.ClientsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\ClientsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\ClientsPage.xaml
+
+[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/DashboardPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Views.DashboardPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\DashboardPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\DashboardPage.xaml
+
+[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/JobDetailPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Views.JobDetailPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\JobDetailPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\JobDetailPage.xaml
+
+[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/JobsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Views.JobsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\JobsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\JobsPage.xaml
+
 [C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/LoginPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Views.LoginPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\LoginPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\LoginPage.xaml
+
+[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/MorePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Views.MorePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\MorePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\MorePage.xaml
+
+[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/QuoteDetailPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Views.QuoteDetailPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\QuoteDetailPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\QuoteDetailPage.xaml
+
+[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/QuotesPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Views.QuotesPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\QuotesPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\QuotesPage.xaml
 
 [C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Views/SplashPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

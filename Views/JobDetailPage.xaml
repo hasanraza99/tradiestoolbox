@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:TradiesToolbox.ViewModels"
+             xmlns:models="clr-namespace:TradiesToolbox.Models"
+             x:Class="TradiesToolbox.Views.JobDetailPage"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" 
+                     Command="{Binding EditCommand}" 
+                     IconImageSource="edit_icon.png" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+            <!-- Job Header -->
+            <Frame Padding="15" CornerRadius="10" HasShadow="True" BackgroundColor="#3E5C76">
+                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                    <!-- Job Title -->
+                    <Label Text="{Binding Job.Title}"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="White" />
+
+                    <!-- Status Badge -->
+                    <Frame Grid.Column="1"
+                           Padding="8,3"
+                           CornerRadius="10"
+                           BackgroundColor="{Binding Job.Status, Converter={StaticResource JobStatusToColorConverter}}"
+                           HasShadow="False">
+                        <Label Text="{Binding Job.StatusDisplay}"
+                               TextColor="White"
+                               FontSize="12"
+                               FontAttributes="Bold" />
+                    </Frame>
+
+                    <!-- Job Description -->
+                    <Label Grid.Row="1" Grid.ColumnSpan="2"
+                           Text="{Binding Job.Description}"
+                           TextColor="White"
+                           Opacity="0.9"
+                           Margin="0,5,0,0" />
+                </Grid>
+            </Frame>
+
+            <!-- Schedule Section -->
+            <Label Text="SCHEDULE" FontAttributes="Bold" Margin="0,10,0,5" />
+            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*">
+                    <Image Source="calendar_icon.png"
+                           WidthRequest="24" 
+                           HeightRequest="24"
+                           VerticalOptions="Center" />
+                    <Label Grid.Column="1"
+                           Text="{Binding Job.ScheduleDisplay}"
+                           FontSize="16"
+                           Margin="10,0,0,0"
+                           VerticalOptions="Center" />
+
+                    <Image Grid.Row="1"
+                           Source="clock_icon.png"
+                           WidthRequest="24" 
+                           HeightRequest="24"
+                           VerticalOptions="Center"
+                           Margin="0,10,0,0" />
+                    <Label Grid.Row="1" Grid.Column="1"
+                           Text="{Binding Job.DurationDisplay}"
+                           FontSize="16"
+                           Margin="10,10,0,0"
+                           VerticalOptions="Center" />
+                </Grid>
+            </Frame>
+
+            <!-- Client Section -->
+            <Label Text="CLIENT" FontAttributes="Bold" Margin="0,10,0,5" />
+            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+                <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                    <Label Text="{Binding Job.ClientName}"
+                           FontSize="18"
+                           FontAttributes="Bold" />
+                    <Button Grid.Column="1"
+                            Text="View Client"
+                            Command="{Binding ViewClientCommand}"
+                            BackgroundColor="Transparent"
+                            TextColor="#3E5C76"
+                            BorderColor="#3E5C76"
+                            BorderWidth="1"
+                            CornerRadius="5"
+                            HeightRequest="30"
+                            Padding="10,0" />
+                </Grid>
+            </Frame>
+
+            <!-- Status Update Section -->
+            <Label Text="UPDATE STATUS" FontAttributes="Bold" Margin="0,10,0,5" />
+            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+                <StackLayout>
+                    <Label Text="Current Status:" />
+                    <Label Text="{Binding Job.StatusDisplay}" 
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{Binding Job.Status, Converter={StaticResource JobStatusToColorConverter}}"
+                           Margin="0,0,0,10" />
+
+                    <Label Text="Change status to:" />
+                    <Picker ItemsSource="{Binding AvailableStatuses}"
+                            SelectedItem="{Binding SelectedStatus}"
+                            Margin="0,0,0,10" />
+
+                    <Button Text="Update Status"
+                            Command="{Binding UpdateStatusCommand}"
+                            BackgroundColor="#3E5C76"
+                            TextColor="White"
+                            CornerRadius="5"
+                            IsEnabled="{Binding CanUpdateStatus}" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

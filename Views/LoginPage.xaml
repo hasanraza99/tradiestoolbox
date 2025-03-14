@@ -9,85 +9,60 @@
         Spacing="20"
         VerticalOptions="Center">
 
-        <!-- Logo -->
+        <!-- Logo image -->
         <Image
-            Source="logo.png."
+            Source="logo.png"
             HeightRequest="120"
-            HorizontalOptions="Center"
-            />
+            HorizontalOptions="Center" />
 
-        <!-- App Title -->
+        <!-- Application Title -->
         <Label
             Text="Tradies Toolbox"
             FontSize="28"
             TextColor="DarkBlue"
             HorizontalOptions="Center"
             FontAttributes="Bold"
-            Margin="0,0,0,20"
-            />
+            Margin="0,0,0,20" />
 
-        <!-- Email Entry 
-        A frame is a visual element that draws a border/background around its content
-        Makes the UI look more refined 
-        
-        Keyboard="Email" Shows an email optimised keyboard -->
+        <!-- Email Input Field -->
         <Frame
             Padding="10"
             CornerRadius="10"
             HasShadow="True"
-            BorderColor="LightGray"
-            >
-
+            BorderColor="LightGray">
             <Entry
                 Placeholder="Email"
                 Keyboard="Email"
-                Text="{Binding Email}"
-                />
+                Text="{Binding Email}" />
         </Frame>
 
-        <!-- Password Entry 
-        IsPassword hides the password during entry -->
+        <!-- Password Input Field -->
         <Frame
             Padding="10"
             CornerRadius="8"
             HasShadow="True"
-            BorderColor="LightGray"
-            >
+            BorderColor="LightGray">
             <Entry
                 Placeholder="Password"
                 IsPassword="True"
-                x:Name="PasswordEntry"
-                Text="{Binding Password}"
-                />
+                Text="{Binding Password}" />
         </Frame>
 
-        <!-- Login Button 
-        We use Command instead of an OnButtonClicked event to better align with MVVM principles -->
+        <!-- Login Button -->
         <Button
             Text="Login"
             BackgroundColor="#3E5C76"
             TextColor="White"
             CornerRadius="8"
             Margin="0,20,0,0"
-            Command="{Binding LoginCommand}"
-            />
-        
-        <!-- Register Link 
-        The formattedstring and span elements allow for:
-        1) different styling within the same text element
-        2) making only part of the text tappable
-        3) creating an inline link appearance -->
-        <Label
-            HorizontalOptions="Center"
-            Margin="0,15,0,0"
-            >
+            Command="{Binding LoginCommand}" />
+
+        <!-- Registration Link -->
+        <Label HorizontalOptions="Center" Margin="0,15,0,0">
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="Don't have an account? "
-                          TextColor="Gray"/>
-                    <Span Text="Register" 
-                          TextColor="#3E5C76" 
-                          FontAttributes="Bold">
+                    <Span Text="Don't have an account? " TextColor="Gray" />
+                    <Span Text="Register" TextColor="#3E5C76" FontAttributes="Bold">
                         <Span.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding RegisterCommand}" />
                         </Span.GestureRecognizers>
