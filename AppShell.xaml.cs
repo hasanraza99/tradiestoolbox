@@ -39,15 +39,17 @@ namespace TradiesToolbox
         {
             try
             {
-                if (AuthService.IsLoggedIn())
+                var supabaseService = new SupabaseService();
+
+                if (supabaseService.IsAuthenticated())
                 {
-                    // User is logged in, go to the dashboard
+                    // User is logged in
                     Console.WriteLine("User is logged in, navigating to Dashboard");
                     CurrentItem = new ShellContent { Content = new DashboardPage() };
                 }
                 else
                 {
-                    // User is not logged in, navigate to login page
+                    // User is not logged in
                     Console.WriteLine("User is not logged in, navigating to Login page");
                     CurrentItem = new ShellContent { Content = new LoginPage() };
                 }
@@ -55,7 +57,6 @@ namespace TradiesToolbox
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in SetInitialPage: {ex.Message}");
-                // Fallback to login on error
                 CurrentItem = new ShellContent { Content = new LoginPage() };
             }
         }

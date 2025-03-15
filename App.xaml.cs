@@ -10,10 +10,20 @@ namespace TradiesToolbox
         {
             InitializeComponent();
 
-            // Ensure database is initialized
-            var dbConnection = DBConnection.GetConnection();
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+            {
+                var exception = args.ExceptionObject as Exception;
+                Console.WriteLine($"Unhandled exception: {exception?.Message}");
+            };
 
-            // Show SplashPage first
+            TaskScheduler.UnobservedTaskException += (sender, args) =>
+            {
+                Console.WriteLine($"Unobserved task exception: {args.Exception.Message}");
+                args.SetObserved(); // Prevent app crash
+            };
+
+            // Existing code
+            var dbConnection = DBConnection.GetConnection();
             MainPage = new SplashPage();
         }
     }

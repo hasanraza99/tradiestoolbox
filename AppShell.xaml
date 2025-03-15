@@ -21,7 +21,7 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <TabBar>
+    <TabBar x:Name="MainTabBar">
         <Tab Title="Dashboard" Icon="dashboard_icon.png">
             <ShellContent ContentTemplate="{DataTemplate views:DashboardPage}" />
         </Tab>

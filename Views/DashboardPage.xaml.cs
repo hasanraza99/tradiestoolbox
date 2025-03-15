@@ -20,13 +20,22 @@ namespace TradiesToolbox.Views
             BindingContext = _viewModel;
         }
 
-        // Triggered when the page is about to appear on the screen
+        // Add this to the DashboardPage.xaml.cs
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            // Instruct the ViewModel to load data when the page is displayed
-            _viewModel.LoadData();
+            try
+            {
+                Console.WriteLine("DashboardPage.OnAppearing - Loading data");
+                _viewModel.LoadData();
+                Console.WriteLine("DashboardPage.OnAppearing - Data loaded successfully");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in DashboardPage.OnAppearing: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+            }
         }
     }
 }

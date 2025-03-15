@@ -23,21 +23,16 @@ namespace TradiesToolbox.Views
                 // Wait for 2 seconds to simulate splash screen delay
                 await Task.Delay(2000);
 
-                // Force logout during development if needed (remove this in production)
-                // AuthService.Logout();
-
-                // Check if the user is logged in
-                bool isLoggedIn = AuthService.IsLoggedIn();
-                Console.WriteLine($"User login status: {isLoggedIn}");
-
                 // Navigate based on login status
                 Application.Current.MainPage = new AppShell();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in SplashPage: {ex.Message}");
+                await DisplayAlert("Error", "An error occurred during startup. The app will restart.", "OK");
 
-                // Fallback to login page on error
+                // Force logout and restart
+                AuthService.Logout();
                 Application.Current.MainPage = new LoginPage();
             }
         }

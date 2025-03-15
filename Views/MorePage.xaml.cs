@@ -19,9 +19,12 @@ namespace TradiesToolbox.Views
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
             bool confirm = await DisplayAlert("Logout", "Are you sure you want to log out?", "Yes", "No");
+
             if (confirm)
             {
-                AuthService.Logout();
+                var supabaseService = new SupabaseService();
+                await supabaseService.SignOutAsync();
+
                 Application.Current.MainPage = new LoginPage();
             }
         }

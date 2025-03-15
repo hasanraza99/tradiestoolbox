@@ -6,6 +6,8 @@ namespace TradiesToolbox.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
+        private readonly SupabaseService _supabaseService;
+
         private string _email;
         public string Email
         {
@@ -25,32 +27,65 @@ namespace TradiesToolbox.ViewModels
 
         public LoginViewModel()
         {
-            LoginCommand = new Command(OnLoginClicked);
-            RegisterCommand = new Command(OnRegisterClicked);
+            _supabaseService = new SupabaseService();
+            LoginCommand = new Command(async () => await OnLoginClicked());
+            RegisterCommand = new Command(async () => await OnRegisterClicked());
         }
 
-        public async void OnLoginClicked()
+        private async Task OnLoginClicked()
         {
-            if (AuthService.Login(Email, Password))
+            if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password))
             {
-                await Shell.Current.GoToAsync($"//DashboardPage"); // Navigate to Dashboard after login
+                await Application.Current.MainPage.DisplayAlert("Error", "Please enter both email and password", "OK");
+                return;
             }
-            else
+
+            try
             {
-                await Application.Current.MainPage.DisplayAlert("Login Failed", "Invalid email or password", "OK");
+                IsBusy = true;
+                var session = await _supabaseService.SignInAsync(Email, Password);
+
+                if (session != null)
+                {
+                    // Login successful
+                    Application.Current.MainPage = new AppShell();
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Login Failed", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
-        private async void OnRegisterClicked()
+        private async Task OnRegisterClicked()
         {
-            bool success = AuthService.Register(Email, Password);
-            if (success)
+            if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password))
             {
-                await Application.Current.MainPage.DisplayAlert("Success", "Account created. You can now log in.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Please enter both email and password", "OK");
+                return;
             }
-            else
+
+            try
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Email already in use.", "OK");
+                IsBusy = true;
+                var session = await _supabaseService.SignUpAsync(Email, Password);
+
+                if (session != null)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Success", "Account created. You can now log in.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Registration Failed", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }
