@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+	<!-- Global Color Palette with Dynamic References -->
+	<Color x:Key="PrimaryColor">#3E5C76</Color>
+	<Color x:Key="BackgroundColor">White</Color>
+	<Color x:Key="TextColor">Black</Color>
+	<Color x:Key="SecondaryTextColor">#666666</Color>
+
+	<!-- Button Styles -->
+	<Style x:Key="PrimaryButtonStyle" TargetType="Button">
+		<Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
+		<Setter Property="TextColor" Value="White" />
+		<Setter Property="CornerRadius" Value="10" />
+		<Setter Property="FontAttributes" Value="Bold" />
+		<Setter Property="Padding" Value="15,10" />
+	</Style>
+
+	<Style x:Key="SecondaryButtonStyle" TargetType="Button">
+		<Setter Property="BackgroundColor" Value="Transparent" />
+		<Setter Property="TextColor" Value="{DynamicResource PrimaryColor}" />
+		<Setter Property="BorderColor" Value="{DynamicResource PrimaryColor}" />
+		<Setter Property="BorderWidth" Value="1" />
+		<Setter Property="CornerRadius" Value="10" />
+		<Setter Property="Padding" Value="15,10" />
+	</Style>
+
+	<!-- Frame Styles -->
+	<Style x:Key="CardStyle" TargetType="Frame">
+		<Setter Property="BackgroundColor" Value="{DynamicResource BackgroundColor}" />
+		<Setter Property="BorderColor" Value="#E0E0E0" />
+		<Setter Property="HasShadow" Value="True" />
+		<Setter Property="CornerRadius" Value="15" />
+		<Setter Property="Padding" Value="15" />
+	</Style>
+
+	<!-- Label Styles -->
+	<Style x:Key="HeaderLabelStyle" TargetType="Label">
+		<Setter Property="FontSize" Value="22" />
+		<Setter Property="FontAttributes" Value="Bold" />
+		<Setter Property="TextColor" Value="{DynamicResource PrimaryColor}" />
+	</Style>
+
+	<Style x:Key="SubheaderLabelStyle" TargetType="Label">
+		<Setter Property="FontSize" Value="16" />
+		<Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+	</Style>
+
+	<!-- Page-level style to ensure consistent theming -->
+	<Style TargetType="ContentPage">
+		<Setter Property="BackgroundColor" Value="{DynamicResource BackgroundColor}" />
+	</Style>
+
+	<!-- Entry Styles -->
+	<Style x:Key="EntryStyle" TargetType="Entry">
+		<Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+		<Setter Property="PlaceholderColor" Value="{DynamicResource SecondaryTextColor}" />
+		<Setter Property="BackgroundColor" Value="Transparent" />
+	</Style>
+</ResourceDictionary>

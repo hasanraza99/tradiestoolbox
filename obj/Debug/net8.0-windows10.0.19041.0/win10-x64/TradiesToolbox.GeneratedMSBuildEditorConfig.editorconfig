@@ -46,6 +46,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Resources.S
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
 
+[C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Resources/Styles/GlobalStyles.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Resources.Styles.GlobalStyles.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\GlobalStyles.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\GlobalStyles.xaml
+
 [C:/Users/ahraz/Documents/FMAD/TradiesToolbox/Resources/Styles/Styles.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TradiesToolbox.Resources.Styles.Styles.xaml

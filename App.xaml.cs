@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui.Storage;
 using TradiesToolbox.Views;
 using TradiesToolbox.Data;
+using TradiesToolbox.Services;
 
 namespace TradiesToolbox
 {
@@ -10,6 +11,7 @@ namespace TradiesToolbox
         {
             InitializeComponent();
 
+            // Initialize global exception handling
             AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
             {
                 var exception = args.ExceptionObject as Exception;
@@ -22,9 +24,24 @@ namespace TradiesToolbox
                 args.SetObserved(); // Prevent app crash
             };
 
+            // Apply theme on startup
+            ThemeService.ApplyTheme();
+
             // Existing code
             var dbConnection = DBConnection.GetConnection();
             MainPage = new SplashPage();
+        }
+
+        protected override void OnStart()
+        {
+            // Apply theme again when app starts
+            ThemeService.ApplyTheme();
+        }
+
+        protected override void OnResume()
+        {
+            // Reapply theme when app resumes
+            ThemeService.ApplyTheme();
         }
     }
 }

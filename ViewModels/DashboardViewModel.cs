@@ -3,6 +3,8 @@ using System.Windows.Input;
 using TradiesToolbox.Models;
 using TradiesToolbox.Views;
 using TradiesToolbox.Data;
+using TradiesToolbox.Services;
+using TradiesToolbox.Enums;
 
 namespace TradiesToolbox.ViewModels
 {
@@ -11,9 +13,33 @@ namespace TradiesToolbox.ViewModels
         private readonly JobDatabase _jobDatabase = new();
         private readonly ClientDatabase _clientDatabase = new();
         private readonly QuoteDatabase _quoteDatabase = new();
+        private readonly SupabaseService _supabaseService;
 
+        // Collections for dashboard data
         public ObservableCollection<JobItem> TodayJobs { get; } = new();
         public ObservableCollection<ActivityItem> RecentActivities { get; } = new();
+
+        // Dashboard statistical properties
+        private int _totalJobs;
+        public int TotalJobs
+        {
+            get => _totalJobs;
+            set => SetProperty(ref _totalJobs, value);
+        }
+
+        private decimal _totalRevenue;
+        public decimal TotalRevenue
+        {
+            get => _totalRevenue;
+            set => SetProperty(ref _totalRevenue, value);
+        }
+
+        private int _pendingQuotes;
+        public int PendingQuotes
+        {
+            get => _pendingQuotes;
+            set => SetProperty(ref _pendingQuotes, value);
+        }
 
         // Property for XAML binding
         public int TodayJobsCount => TodayJobs?.Count ?? 0;
@@ -33,7 +59,9 @@ namespace TradiesToolbox.ViewModels
         public DashboardViewModel()
         {
             Title = "Dashboard";
+            _supabaseService = new SupabaseService();
 
+            // Initialize commands
             NewJobCommand = new Command(async () => await NavigationHelper.SafeNavigateAsync(nameof(AddJobPage)));
             NewQuoteCommand = new Command(async () => await NavigationHelper.SafeNavigateAsync(nameof(AddQuotePage)));
             ViewAllJobsCommand = new Command(async () => await NavigationHelper.SafeNavigateAsync("//JobsPage"));
@@ -47,14 +75,18 @@ namespace TradiesToolbox.ViewModels
             try
             {
                 Console.WriteLine("Dashboard: Beginning to load data");
+
+                // Personalize welcome message first
+                PersonalizeWelcomeMessage();
+
                 // Load today's jobs
                 LoadTodayJobs();
 
                 // Load recent activities
                 LoadRecentActivities();
 
-                // Personalize welcome message
-                PersonalizeWelcomeMessage();
+                // Calculate dashboard statistics
+                CalculateDashboardStats();
 
                 // Update UI properties
                 OnPropertyChanged(nameof(TodayJobsCount));
@@ -69,6 +101,38 @@ namespace TradiesToolbox.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        private void PersonalizeWelcomeMessage()
+        {
+            try
+            {
+                var userEmail = _supabaseService.GetCurrentUserEmail();
+                if (!string.IsNullOrEmpty(userEmail))
+                {
+                    string username = userEmail.Contains('@') ?
+                        userEmail.Split('@')[0] :
+                        userEmail;
+
+                    WelcomeMessage = GetTimeBasedGreeting() + $" {username}!";
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error personalizing welcome message: {ex.Message}");
+            }
+        }
+
+        private string GetTimeBasedGreeting()
+        {
+            var currentHour = DateTime.Now.Hour;
+            return currentHour switch
+            {
+                >= 5 and < 12 => "Good morning",
+                >= 12 and < 17 => "Good afternoon",
+                >= 17 and < 21 => "Good evening",
+                _ => "Good night"
+            };
         }
 
         private void LoadTodayJobs()
@@ -219,24 +283,23 @@ namespace TradiesToolbox.ViewModels
             }
         }
 
-        private void PersonalizeWelcomeMessage()
+        private void CalculateDashboardStats()
         {
             try
             {
-                string userEmail = Preferences.Get("UserEmail", string.Empty);
-                if (!string.IsNullOrEmpty(userEmail))
-                {
-                    string username = userEmail.Contains('@') ?
-                        userEmail.Split('@')[0] :
-                        userEmail;
+                var jobs = _jobDatabase.GetJobs();
+                var quotes = _quoteDatabase.GetQuotes();
 
-                    WelcomeMessage = $"Welcome back, {username}!";
-                }
+                TotalJobs = jobs.Count;
+                TotalRevenue = jobs
+                    .Where(j => j.JobStatusEnum == JobStatus.Paid)
+                    .Sum(j => j.ActualCost);
+                PendingQuotes = quotes
+                    .Count(q => q.StatusEnum == QuoteStatus.Draft || q.StatusEnum == QuoteStatus.Sent);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error personalizing welcome message: {ex.Message}");
-                // Keep default welcome message on error
+                Console.WriteLine($"Error calculating dashboard stats: {ex.Message}");
             }
         }
     }

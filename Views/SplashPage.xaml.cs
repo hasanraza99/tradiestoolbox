@@ -6,9 +6,12 @@ namespace TradiesToolbox.Views
 {
     public partial class SplashPage : ContentPage
     {
+        private readonly SupabaseService _supabaseService;
+
         public SplashPage()
         {
             InitializeComponent();
+            _supabaseService = new SupabaseService();
         }
 
         protected override async void OnAppearing()
@@ -23,8 +26,17 @@ namespace TradiesToolbox.Views
                 // Wait for 2 seconds to simulate splash screen delay
                 await Task.Delay(2000);
 
-                // Navigate based on login status
-                Application.Current.MainPage = new AppShell();
+                // Check authentication status using Supabase
+                if (_supabaseService.IsAuthenticated())
+                {
+                    // User is logged in, navigate to main app
+                    Application.Current.MainPage = new AppShell();
+                }
+                else
+                {
+                    // User is not authenticated, go to login page
+                    Application.Current.MainPage = new LoginPage();
+                }
             }
             catch (Exception ex)
             {
@@ -32,7 +44,7 @@ namespace TradiesToolbox.Views
                 await DisplayAlert("Error", "An error occurred during startup. The app will restart.", "OK");
 
                 // Force logout and restart
-                AuthService.Logout();
+                await _supabaseService.SignOutAsync();
                 Application.Current.MainPage = new LoginPage();
             }
         }

@@ -8,6 +8,9 @@ namespace TradiesToolbox.Views
         {
             InitializeComponent();
 
+            // Bind the switch to the current theme state
+            DarkModeSwitch.IsToggled = ThemeService.IsDarkModeEnabled;
+
             // Find the Logout button and attach event handler
             var logoutButton = this.FindByName<Button>("LogoutButton");
             if (logoutButton != null)
@@ -27,6 +30,12 @@ namespace TradiesToolbox.Views
 
                 Application.Current.MainPage = new LoginPage();
             }
+        }
+
+        private void OnDarkModeSwitchToggled(object sender, ToggledEventArgs e)
+        {
+            // Apply the theme based on the switch state
+            ThemeService.IsDarkModeEnabled = e.Value;
         }
     }
 }
