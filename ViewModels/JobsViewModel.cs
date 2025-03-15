@@ -11,7 +11,7 @@ namespace TradiesToolbox.ViewModels
     public class JobsViewModel : BaseViewModel
     {
         private readonly JobDatabase _jobDatabase = new();
-        private readonly ClientDatabase _clientDatabase = new(); // Added client database reference
+        private readonly ClientDatabase _clientDatabase = new();
 
         private ObservableCollection<Job> _jobs = new();
         public ObservableCollection<Job> Jobs
@@ -19,6 +19,12 @@ namespace TradiesToolbox.ViewModels
             get => _jobs;
             set => SetProperty(ref _jobs, value);
         }
+
+        // Add these missing properties
+        public ObservableCollection<string> StatusFilters { get; } = new();
+        public string SelectedStatusFilter { get; set; }
+        public ObservableCollection<string> DateFilters { get; } = new();
+        public string SelectedDateFilter { get; set; }
 
         public ICommand RefreshCommand { get; }
         public ICommand AddJobCommand { get; }
@@ -30,6 +36,21 @@ namespace TradiesToolbox.ViewModels
             RefreshCommand = new Command(async () => await LoadJobsAsync());
             AddJobCommand = new Command(OnAddJob);
             JobSelectedCommand = new Command<Job>(OnJobSelected);
+
+            // Initialize filters
+            StatusFilters.Add("All Statuses");
+            foreach (var status in Enum.GetNames(typeof(JobStatus)))
+            {
+                StatusFilters.Add(status);
+            }
+            SelectedStatusFilter = "All Statuses";
+
+            DateFilters.Add("All Dates");
+            DateFilters.Add("Today");
+            DateFilters.Add("This Week");
+            DateFilters.Add("This Month");
+            SelectedDateFilter = "All Dates";
+
             LoadJobsAsync().ConfigureAwait(false);
         }
 
@@ -46,7 +67,7 @@ namespace TradiesToolbox.ViewModels
                 foreach (var job in jobList)
                 {
                     var client = clientDb.GetClient(job.ClientID);
-                    job.ClientName = client?.Name ?? "Unknown"; // Assigning client name
+                    job.ClientName = client?.Name ?? "Unknown";
                 }
 
                 Jobs = new ObservableCollection<Job>(jobList);
@@ -61,7 +82,6 @@ namespace TradiesToolbox.ViewModels
             }
         }
 
-
         private async void OnAddJob()
         {
             await Shell.Current.GoToAsync(nameof(AddJobPage));
@@ -70,8 +90,6 @@ namespace TradiesToolbox.ViewModels
         private async void OnJobSelected(Job job)
         {
             if (job == null) return;
-
-            // Navigate to JobDetailPage and pass the JobID as a query parameter
             await Shell.Current.GoToAsync($"{nameof(JobDetailPage)}?jobId={job.JobID}");
         }
     }

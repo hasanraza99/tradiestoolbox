@@ -32,6 +32,8 @@ namespace TradiesToolbox.ViewModels
             }
         }
 
+        // Add missing command
+        public ICommand SearchCommand { get; }
         public ICommand RefreshCommand { get; }
         public ICommand AddClientCommand { get; }
         public ICommand ClientSelectedCommand { get; }
@@ -44,6 +46,8 @@ namespace TradiesToolbox.ViewModels
             AddClientCommand = new Command(OnAddClient);
             ClientSelectedCommand = new Command<Client>(OnClientSelected);
             DeleteClientCommand = new Command<Client>(OnDeleteClient);
+            SearchCommand = new Command(() => FilterClients()); // Add this line
+
             LoadClientsAsync().ConfigureAwait(false);
         }
 
@@ -103,6 +107,5 @@ namespace TradiesToolbox.ViewModels
                 LoadClientsAsync().ConfigureAwait(false);
             }
         }
-
     }
 }

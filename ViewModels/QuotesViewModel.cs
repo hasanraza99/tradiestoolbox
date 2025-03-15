@@ -4,6 +4,7 @@ using System.Windows.Input;
 using TradiesToolbox.Models;
 using TradiesToolbox.Data;
 using Microsoft.Maui.Controls;
+using TradiesToolbox.Enums;
 using TradiesToolbox.Views;
 
 namespace TradiesToolbox.ViewModels
@@ -19,6 +20,10 @@ namespace TradiesToolbox.ViewModels
             set => SetProperty(ref _quotes, value);
         }
 
+        // Add these missing properties
+        public ObservableCollection<string> StatusFilters { get; } = new();
+        public string SelectedStatusFilter { get; set; }
+
         public ICommand RefreshCommand { get; }
         public ICommand AddQuoteCommand { get; }
         public ICommand QuoteSelectedCommand { get; }
@@ -29,6 +34,15 @@ namespace TradiesToolbox.ViewModels
             RefreshCommand = new Command(async () => await LoadQuotesAsync());
             AddQuoteCommand = new Command(OnAddQuote);
             QuoteSelectedCommand = new Command<Quote>(OnQuoteSelected);
+
+            // Initialize status filters
+            StatusFilters.Add("All Statuses");
+            foreach (var status in Enum.GetNames(typeof(QuoteStatus)))
+            {
+                StatusFilters.Add(status);
+            }
+            SelectedStatusFilter = "All Statuses";
+
             LoadQuotesAsync().ConfigureAwait(false);
         }
 
@@ -62,5 +76,4 @@ namespace TradiesToolbox.ViewModels
             await Shell.Current.GoToAsync($"{nameof(QuoteDetailPage)}?quoteId={quote.Id}");
         }
     }
-    
 }

@@ -21,9 +21,6 @@ namespace TradiesToolbox.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            // Initialize ViewModel logic
-            _viewModel.OnLoginClicked();
         }
     }
 }

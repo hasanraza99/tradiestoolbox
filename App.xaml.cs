@@ -1,5 +1,6 @@
 ﻿using Microsoft.Maui.Storage;
 using TradiesToolbox.Views;
+using TradiesToolbox.Data;
 
 namespace TradiesToolbox
 {
@@ -9,13 +10,11 @@ namespace TradiesToolbox
         {
             InitializeComponent();
 
+            // Ensure database is initialized
+            var dbConnection = DBConnection.GetConnection();
+
             // Show SplashPage first
             MainPage = new SplashPage();
-        }
-
-        protected override void OnStart()
-        {
-            base.OnStart();
         }
     }
 }

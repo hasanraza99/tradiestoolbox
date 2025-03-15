@@ -23,9 +23,16 @@ namespace TradiesToolbox.Data
         {
             if (_database == null)
             {
-                Console.WriteLine("Database connection is NULL! Fix this.");
+                Console.WriteLine("Creating database connection");
                 _database = new SQLiteConnection(DatabasePath, Flags);
-                _database.CreateTable<Client>(); // Ensure table exists
+
+                // Create all necessary tables
+                _database.CreateTable<Client>();
+                _database.CreateTable<User>();
+                _database.CreateTable<Job>();
+                _database.CreateTable<Quote>();
+
+                Console.WriteLine("Database tables created successfully");
             }
             return _database;
         }

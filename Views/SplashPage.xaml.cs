@@ -1,4 +1,5 @@
 using TradiesToolbox.Services;
+using TradiesToolbox.Data;
 using Microsoft.Maui.Controls;
 
 namespace TradiesToolbox.Views
@@ -14,17 +15,30 @@ namespace TradiesToolbox.Views
         {
             base.OnAppearing();
 
-            // Wait for 2 seconds to simulate splash screen delay
-            await Task.Delay(2000);
+            try
+            {
+                // Ensure database connection is established
+                var dbConn = DBConnection.GetConnection();
 
-            // Check login status and navigate accordingly
-            if (AuthService.IsLoggedIn())
-            {
-                Application.Current.MainPage = new AppShell(); // Go to dashboard
+                // Wait for 2 seconds to simulate splash screen delay
+                await Task.Delay(2000);
+
+                // Force logout during development if needed (remove this in production)
+                // AuthService.Logout();
+
+                // Check if the user is logged in
+                bool isLoggedIn = AuthService.IsLoggedIn();
+                Console.WriteLine($"User login status: {isLoggedIn}");
+
+                // Navigate based on login status
+                Application.Current.MainPage = new AppShell();
             }
-            else
+            catch (Exception ex)
             {
-                await Shell.Current.GoToAsync(nameof(LoginPage)); // Go to login
+                Console.WriteLine($"Error in SplashPage: {ex.Message}");
+
+                // Fallback to login page on error
+                Application.Current.MainPage = new LoginPage();
             }
         }
     }
