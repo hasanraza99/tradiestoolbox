@@ -19,6 +19,7 @@ namespace TradiesToolbox
 
         /// <summary>
         /// Registers routes for navigation to different pages.
+        /// Using Shell navigation instead of traditional push/pop navigation was more intuitive for me
         /// </summary>
         private void RegisterRoutes()
         {

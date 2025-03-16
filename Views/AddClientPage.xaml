@@ -8,56 +8,73 @@
     <ScrollView>
         <StackLayout Padding="20" Spacing="15">
             <!-- Name -->
-            <Label Text="Client Name" FontAttributes="Bold"/>
-            <Entry Placeholder="Enter client name"
-                   Text="{Binding Client.Name}" />
+            <Label Text="Client Name" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}"/>
+            <Frame Padding="0" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                <Entry Placeholder="Enter client name"
+                       Text="{Binding Client.Name}"
+                       Margin="10,0" />
+            </Frame>
 
             <!-- Email -->
-            <Label Text="Email" FontAttributes="Bold"/>
-            <Entry Placeholder="Enter email"
-                   Keyboard="Email"
-                   Text="{Binding Client.Email}" />
+            <Label Text="Email" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}"/>
+            <Frame Padding="0" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                <Entry Placeholder="Enter email"
+                       Keyboard="Email"
+                       Text="{Binding Client.Email}"
+                       Margin="10,0" />
+            </Frame>
 
             <!-- Phone -->
-            <Label Text="Phone" FontAttributes="Bold"/>
-            <Entry Placeholder="Enter phone number"
-                   Keyboard="Telephone"
-                   Text="{Binding Client.Phone}" />
+            <Label Text="Phone" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}"/>
+            <Frame Padding="0" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                <Entry Placeholder="Enter phone number"
+                       Keyboard="Telephone"
+                       Text="{Binding Client.Phone}"
+                       Margin="10,0" />
+            </Frame>
 
             <!-- Address -->
-            <Label Text="Address" FontAttributes="Bold"/>
-            <Editor Placeholder="Enter address"
-                    Text="{Binding Client.Address}" />
+            <Label Text="Address" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}"/>
+            <Frame Padding="5" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                <Editor Placeholder="Enter address"
+                        Text="{Binding Client.Address}"
+                        HeightRequest="80"
+                        AutoSize="TextChanges" />
+            </Frame>
 
             <!-- Notes -->
-            <Label Text="Notes" FontAttributes="Bold"/>
-            <Editor Placeholder="Enter any additional notes"
-                    Text="{Binding Client.Notes}" />
+            <Label Text="Notes" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}"/>
+            <Frame Padding="5" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                <Editor Placeholder="Enter any additional notes"
+                        Text="{Binding Client.Notes}"
+                        HeightRequest="80"
+                        AutoSize="TextChanges" />
+            </Frame>
 
             <!-- Is Active -->
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Label Text="Active Client" FontAttributes="Bold" VerticalOptions="Center"/>
-                <Switch IsToggled="{Binding Client.IsActive}" VerticalOptions="Center"/>
-            </StackLayout>
+            <Grid ColumnDefinitions="*,Auto" Margin="0,5">
+                <Label Text="Active Client" 
+                       FontAttributes="Bold" 
+                       Style="{StaticResource FieldLabelStyle}"
+                       VerticalOptions="Center"/>
+                <Switch Grid.Column="1" 
+                        IsToggled="{Binding Client.IsActive}" 
+                        OnColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="Center"/>
+            </Grid>
 
             <!-- Save & Cancel Buttons -->
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Button Text="Save"
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="15" Margin="0,10,0,20">
+                <Button Grid.Column="0"
+                        Text="Save"
                         Command="{Binding SaveClientCommand}"
-                        BackgroundColor="#3E5C76"
-                        TextColor="White"
-                        CornerRadius="8"
-                        HorizontalOptions="FillAndExpand" />
+                        Style="{StaticResource PrimaryButton}" />
 
-                <Button Text="Cancel"
+                <Button Grid.Column="1"
+                        Text="Cancel"
                         Command="{Binding CancelCommand}"
-                        BackgroundColor="Transparent"
-                        TextColor="#3E5C76"
-                        BorderColor="#3E5C76"
-                        BorderWidth="1"
-                        CornerRadius="8"
-                        HorizontalOptions="FillAndExpand" />
-            </StackLayout>
+                        Style="{StaticResource SecondaryButton}" />
+            </Grid>
         </StackLayout>
     </ScrollView>
 </ContentPage>

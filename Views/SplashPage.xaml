@@ -2,16 +2,42 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TradiesToolbox.Views.SplashPage"
-             BackgroundColor="#BF4011">
+             BackgroundColor="{StaticResource PrimaryColor}">
 
-    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="20">
+    <!-- Main layout with gradient background -->
+    <Grid>
+        <!-- Create a subtle gradient effect -->
+        <BoxView BackgroundColor="{StaticResource PrimaryDarkColor}"
+                 Opacity="0.7"
+                 HeightRequest="300"
+                 VerticalOptions="End"/>
 
-        <!-- Application Logo -->
-        <Image Source="logo.png" HeightRequest="200" WidthRequest="200" />
+        <!-- Logo and elements -->
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="30">
+            <!-- Application Logo - remove animation for now -->
+            <Image Source="logo.png" 
+                   HeightRequest="180" 
+                   WidthRequest="180" />
 
-        <!-- Loading Indicator -->
-        <ActivityIndicator IsRunning="True" Color="White" />
+            <!-- App Name with stylized text -->
+            <Label Text="TRADIES TOOLBOX"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center" />
 
-    </StackLayout>
+            <!-- App tagline -->
+            <Label Text="Manage Your Business With Ease"
+                   FontSize="18"
+                   TextColor="White"
+                   Opacity="0.9"
+                   HorizontalOptions="Center" />
 
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsRunning="True" 
+                               Color="White"
+                               HeightRequest="50"
+                               WidthRequest="50" />
+        </StackLayout>
+    </Grid>
 </ContentPage>

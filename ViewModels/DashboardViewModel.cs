@@ -1,306 +1,316 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using TradiesToolbox.Models;
-using TradiesToolbox.Views;
+﻿using TradiesToolbox.Models;
+using TradiesToolbox.ViewModels;
+using System;
 using TradiesToolbox.Data;
-using TradiesToolbox.Services;
+using TradiesToolbox.Views;
 using TradiesToolbox.Enums;
+using TradiesToolbox.Services;
+// DashboardViewModel.cs - Simplified version with clearer comments
+// This ViewModel powers the Dashboard, which is the main landing page of the app
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
-namespace TradiesToolbox.ViewModels
+public class DashboardViewModel : BaseViewModel
 {
-    public class DashboardViewModel : BaseViewModel
+    private readonly JobDatabase _jobDatabase = new();
+    private readonly ClientDatabase _clientDatabase = new();
+    private readonly QuoteDatabase _quoteDatabase = new();
+    private readonly SupabaseService _supabaseService;
+
+    // Collections for dashboard data
+    public ObservableCollection<JobItem> TodayJobs { get; } = new();
+    public ObservableCollection<ActivityItem> RecentActivities { get; } = new();
+
+    // Dashboard statistical properties
+    private int _totalJobs;
+    public int TotalJobs
     {
-        private readonly JobDatabase _jobDatabase = new();
-        private readonly ClientDatabase _clientDatabase = new();
-        private readonly QuoteDatabase _quoteDatabase = new();
-        private readonly SupabaseService _supabaseService;
+        get => _totalJobs;
+        set => SetProperty(ref _totalJobs, value);
+    }
 
-        // Collections for dashboard data
-        public ObservableCollection<JobItem> TodayJobs { get; } = new();
-        public ObservableCollection<ActivityItem> RecentActivities { get; } = new();
+    private decimal _totalRevenue;
+    public decimal TotalRevenue
+    {
+        get => _totalRevenue;
+        set => SetProperty(ref _totalRevenue, value);
+    }
 
-        // Dashboard statistical properties
-        private int _totalJobs;
-        public int TotalJobs
+    private int _pendingQuotes;
+    public int PendingQuotes
+    {
+        get => _pendingQuotes;
+        set => SetProperty(ref _pendingQuotes, value);
+    }
+
+    // Property for XAML binding
+    public int TodayJobsCount => TodayJobs?.Count ?? 0;
+
+    // Commands for XAML binding
+    public ICommand NewJobCommand { get; }
+    public ICommand NewQuoteCommand { get; }
+    public ICommand ViewAllJobsCommand { get; }
+
+    private string _welcomeMessage = "Welcome back!";
+    public string WelcomeMessage
+    {
+        get => _welcomeMessage;
+        set => SetProperty(ref _welcomeMessage, value);
+    }
+
+    // Constructor initializes commands and services
+    public DashboardViewModel()
+    {
+        Title = "Dashboard";
+        _supabaseService = new SupabaseService();
+
+        // Initialize commands
+        NewJobCommand = new Command(async () => await NavigationHelper.SafeNavigateAsync(nameof(AddJobPage)));
+        NewQuoteCommand = new Command(async () => await NavigationHelper.SafeNavigateAsync(nameof(AddQuotePage)));
+        ViewAllJobsCommand = new Command(async () => await NavigationHelper.SafeNavigateAsync("//JobsPage"));
+    }
+
+    // Main method to load all dashboard data
+    public void LoadData()
+    {
+        if (IsBusy) return;
+        IsBusy = true;
+
+        try
         {
-            get => _totalJobs;
-            set => SetProperty(ref _totalJobs, value);
+            Console.WriteLine("Dashboard: Beginning to load data");
+
+            // Personalize welcome message first
+            PersonalizeWelcomeMessage();
+
+            // Load today's jobs
+            LoadTodayJobs();
+
+            // Load recent activities
+            LoadRecentActivities();
+
+            // Calculate dashboard statistics
+            CalculateDashboardStats();
+
+            // Update UI properties
+            OnPropertyChanged(nameof(TodayJobsCount));
+            Console.WriteLine("Dashboard: Data loading completed successfully");
         }
-
-        private decimal _totalRevenue;
-        public decimal TotalRevenue
+        catch (Exception ex)
         {
-            get => _totalRevenue;
-            set => SetProperty(ref _totalRevenue, value);
+            Console.WriteLine($"Error loading dashboard data: {ex.Message}");
+            Console.WriteLine($"Stack trace: {ex.StackTrace}");
         }
-
-        private int _pendingQuotes;
-        public int PendingQuotes
+        finally
         {
-            get => _pendingQuotes;
-            set => SetProperty(ref _pendingQuotes, value);
+            IsBusy = false;
         }
+    }
 
-        // Property for XAML binding
-        public int TodayJobsCount => TodayJobs?.Count ?? 0;
+    // Helper methods below
 
-        // Commands for XAML binding
-        public ICommand NewJobCommand { get; }
-        public ICommand NewQuoteCommand { get; }
-        public ICommand ViewAllJobsCommand { get; }
-
-        private string _welcomeMessage = "Welcome back!";
-        public string WelcomeMessage
+    // Creates a personalized welcome message based on user email and time of day
+    private void PersonalizeWelcomeMessage()
+    {
+        try
         {
-            get => _welcomeMessage;
-            set => SetProperty(ref _welcomeMessage, value);
-        }
-
-        public DashboardViewModel()
-        {
-            Title = "Dashboard";
-            _supabaseService = new SupabaseService();
-
-            // Initialize commands
-            NewJobCommand = new Command(async () => await NavigationHelper.SafeNavigateAsync(nameof(AddJobPage)));
-            NewQuoteCommand = new Command(async () => await NavigationHelper.SafeNavigateAsync(nameof(AddQuotePage)));
-            ViewAllJobsCommand = new Command(async () => await NavigationHelper.SafeNavigateAsync("//JobsPage"));
-        }
-
-        public void LoadData()
-        {
-            if (IsBusy) return;
-            IsBusy = true;
-
-            try
+            var userEmail = _supabaseService.GetCurrentUserEmail();
+            if (!string.IsNullOrEmpty(userEmail))
             {
-                Console.WriteLine("Dashboard: Beginning to load data");
+                string username = userEmail.Contains('@') ?
+                    userEmail.Split('@')[0] :
+                    userEmail;
 
-                // Personalize welcome message first
-                PersonalizeWelcomeMessage();
-
-                // Load today's jobs
-                LoadTodayJobs();
-
-                // Load recent activities
-                LoadRecentActivities();
-
-                // Calculate dashboard statistics
-                CalculateDashboardStats();
-
-                // Update UI properties
-                OnPropertyChanged(nameof(TodayJobsCount));
-                Console.WriteLine("Dashboard: Data loading completed successfully");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error loading dashboard data: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        private void PersonalizeWelcomeMessage()
-        {
-            try
-            {
-                var userEmail = _supabaseService.GetCurrentUserEmail();
-                if (!string.IsNullOrEmpty(userEmail))
-                {
-                    string username = userEmail.Contains('@') ?
-                        userEmail.Split('@')[0] :
-                        userEmail;
-
-                    WelcomeMessage = GetTimeBasedGreeting() + $" {username}!";
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error personalizing welcome message: {ex.Message}");
+                WelcomeMessage = GetTimeBasedGreeting() + $" {username}!";
             }
         }
-
-        private string GetTimeBasedGreeting()
+        catch (Exception ex)
         {
-            var currentHour = DateTime.Now.Hour;
-            return currentHour switch
-            {
-                >= 5 and < 12 => "Good morning",
-                >= 12 and < 17 => "Good afternoon",
-                >= 17 and < 21 => "Good evening",
-                _ => "Good night"
-            };
+            Console.WriteLine($"Error personalizing welcome message: {ex.Message}");
         }
+    }
 
-        private void LoadTodayJobs()
+    // Returns different greeting based on time of day
+    private string GetTimeBasedGreeting()
+    {
+        var currentHour = DateTime.Now.Hour;
+        return currentHour switch
         {
-            try
-            {
-                TodayJobs.Clear();
+            >= 5 and < 12 => "Good morning",
+            >= 12 and < 17 => "Good afternoon",
+            >= 17 and < 21 => "Good evening",
+            _ => "Good night"
+        };
+    }
 
-                // Get all jobs and materialize the query with ToList()
-                var allJobs = _jobDatabase.GetJobs();
-                if (allJobs == null)
-                {
-                    Console.WriteLine("No jobs found in database");
-                    return;
-                }
-
-                // Filter for today's jobs and materialize the query
-                var todayScheduled = allJobs
-                    .Where(j => j.ScheduledDate.Date == DateTime.Today)
-                    .ToList();
-
-                Console.WriteLine($"Found {todayScheduled.Count} jobs scheduled for today");
-
-                foreach (var job in todayScheduled)
-                {
-                    try
-                    {
-                        if (job == null)
-                        {
-                            Console.WriteLine("Skipping null job entry");
-                            continue;
-                        }
-
-                        // Safely get client name
-                        string clientName = "Unknown";
-                        string location = "Unknown location";
-
-                        if (job.ClientID > 0)
-                        {
-                            try
-                            {
-                                var client = _clientDatabase.GetClient(job.ClientID);
-                                clientName = client?.Name ?? "Unknown";
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine($"Error fetching client for job {job.JobID}: {ex.Message}");
-                            }
-                        }
-
-                        // Safely get job location
-                        if (!string.IsNullOrEmpty(job.Location))
-                        {
-                            location = job.Location;
-                        }
-
-                        // Create job item with safe values
-                        var jobItem = new JobItem
-                        {
-                            Time = job.ScheduledDate.ToString("h:mm tt"),
-                            Title = !string.IsNullOrEmpty(job.Title) ? job.Title : "Untitled Job",
-                            Duration = $"{job.Duration.Hours}h {job.Duration.Minutes}m",
-                            ClientInfo = $"{clientName} - {location}"
-                        };
-
-                        // Add to collection
-                        TodayJobs.Add(jobItem);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error processing job {job?.JobID}: {ex.Message}");
-                        // Continue to next job instead of crashing
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in LoadTodayJobs: {ex.Message}");
-            }
-        }
-
-        private void LoadRecentActivities()
+    // Loads jobs scheduled for today
+    private void LoadTodayJobs()
+    {
+        try
         {
-            try
+            TodayJobs.Clear();
+
+            // Get all jobs and materialize the query with ToList()
+            var allJobs = _jobDatabase.GetJobs();
+            if (allJobs == null)
             {
-                RecentActivities.Clear();
+                Console.WriteLine("No jobs found in database");
+                return;
+            }
 
-                // Recent jobs - limit to 3
-                var recentJobs = _jobDatabase.GetJobs()
-                    .OrderByDescending(j => j.CreatedDate)
-                    .Take(3)
-                    .ToList();  // Materialize the query
+            // Filter for today's jobs and materialize the query
+            var todayScheduled = allJobs
+                .Where(j => j.ScheduledDate.Date == DateTime.Today)
+                .ToList();
 
-                foreach (var job in recentJobs)
-                {
-                    if (job == null) continue;
+            Console.WriteLine($"Found {todayScheduled.Count} jobs scheduled for today");
 
-                    string timeAgo = "Recently";
-
-                    try
-                    {
-                        timeAgo = job.CreatedDate.Date == DateTime.Today ? "Today" :
-                                  job.CreatedDate.Date == DateTime.Today.AddDays(-1) ? "Yesterday" :
-                                  job.CreatedDate.ToString("MMM d");
-                    }
-                    catch
-                    {
-                        // If date calculation fails, use default
-                        timeAgo = "Recently";
-                    }
-
-                    RecentActivities.Add(new ActivityItem
-                    {
-                        Description = $"Job: {job.Title ?? "Untitled"} ({job.JobStatusEnum})",
-                        Timestamp = timeAgo,
-                        Color = "Gray" // Converter will handle this on UI
-                    });
-                }
-
-                // Recent quotes - be defensive
+            foreach (var job in todayScheduled)
+            {
                 try
                 {
-                    var recentQuotes = _quoteDatabase.GetQuotes()
-                        .Take(3)
-                        .ToList();  // Materialize the query
-
-                    foreach (var quote in recentQuotes)
+                    if (job == null)
                     {
-                        if (quote == null) continue;
-
-                        RecentActivities.Add(new ActivityItem
-                        {
-                            Description = $"Quote: {quote.JobTitle ?? "Untitled"} ({quote.StatusDisplay ?? "Unknown"})",
-                            Timestamp = "Recently",
-                            Color = "Blue" // Converter will handle this on UI
-                        });
+                        Console.WriteLine("Skipping null job entry");
+                        continue;
                     }
+
+                    // Safely get client name
+                    string clientName = "Unknown";
+                    string location = "Unknown location";
+
+                    if (job.ClientID > 0)
+                    {
+                        try
+                        {
+                            var client = _clientDatabase.GetClient(job.ClientID);
+                            clientName = client?.Name ?? "Unknown";
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error fetching client for job {job.JobID}: {ex.Message}");
+                        }
+                    }
+
+                    // Safely get job location
+                    if (!string.IsNullOrEmpty(job.Location))
+                    {
+                        location = job.Location;
+                    }
+
+                    // Create job item with safe values
+                    var jobItem = new JobItem
+                    {
+                        Time = job.ScheduledDate.ToString("h:mm tt"),
+                        Title = !string.IsNullOrEmpty(job.Title) ? job.Title : "Untitled Job",
+                        Duration = $"{job.Duration.Hours}h {job.Duration.Minutes}m",
+                        ClientInfo = $"{clientName} - {location}"
+                    };
+
+                    // Add to collection
+                    TodayJobs.Add(jobItem);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error loading quotes: {ex.Message}");
-                    // Continue execution instead of crashing
+                    Console.WriteLine($"Error processing job {job?.JobID}: {ex.Message}");
+                    // Continue to next job instead of crashing
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in LoadTodayJobs: {ex.Message}");
+        }
+    }
+
+    // Loads recent activities for the dashboard
+    private void LoadRecentActivities()
+    {
+        try
+        {
+            RecentActivities.Clear();
+
+            // Recent jobs - limit to 3
+            var recentJobs = _jobDatabase.GetJobs()
+                .OrderByDescending(j => j.CreatedDate)
+                .Take(3)
+                .ToList();  // Materialize the query
+
+            foreach (var job in recentJobs)
+            {
+                if (job == null) continue;
+
+                string timeAgo = "Recently";
+
+                try
+                {
+                    timeAgo = job.CreatedDate.Date == DateTime.Today ? "Today" :
+                              job.CreatedDate.Date == DateTime.Today.AddDays(-1) ? "Yesterday" :
+                              job.CreatedDate.ToString("MMM d");
+                }
+                catch
+                {
+                    // If date calculation fails, use default
+                    timeAgo = "Recently";
+                }
+
+                RecentActivities.Add(new ActivityItem
+                {
+                    Description = $"Job: {job.Title ?? "Untitled"} ({job.JobStatusEnum})",
+                    Timestamp = timeAgo,
+                    Color = "Gray" // Converter will handle this on UI
+                });
+            }
+
+            // Recent quotes - be defensive
+            try
+            {
+                var recentQuotes = _quoteDatabase.GetQuotes()
+                    .Take(3)
+                    .ToList();  // Materialize the query
+
+                foreach (var quote in recentQuotes)
+                {
+                    if (quote == null) continue;
+
+                    RecentActivities.Add(new ActivityItem
+                    {
+                        Description = $"Quote: {quote.JobTitle ?? "Untitled"} ({quote.StatusDisplay ?? "Unknown"})",
+                        Timestamp = "Recently",
+                        Color = "Blue" // Converter will handle this on UI
+                    });
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in LoadRecentActivities: {ex.Message}");
+                Console.WriteLine($"Error loading quotes: {ex.Message}");
+                // Continue execution instead of crashing
             }
         }
-
-        private void CalculateDashboardStats()
+        catch (Exception ex)
         {
-            try
-            {
-                var jobs = _jobDatabase.GetJobs();
-                var quotes = _quoteDatabase.GetQuotes();
+            Console.WriteLine($"Error in LoadRecentActivities: {ex.Message}");
+        }
+    }
 
-                TotalJobs = jobs.Count;
-                TotalRevenue = jobs
-                    .Where(j => j.JobStatusEnum == JobStatus.Paid)
-                    .Sum(j => j.ActualCost);
-                PendingQuotes = quotes
-                    .Count(q => q.StatusEnum == QuoteStatus.Draft || q.StatusEnum == QuoteStatus.Sent);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error calculating dashboard stats: {ex.Message}");
-            }
+    // Calculates dashboard statistics
+    private void CalculateDashboardStats()
+    {
+        try
+        {
+            var jobs = _jobDatabase.GetJobs();
+            var quotes = _quoteDatabase.GetQuotes();
+
+            TotalJobs = jobs.Count;
+            TotalRevenue = jobs
+                .Where(j => j.JobStatusEnum == JobStatus.Paid)
+                .Sum(j => j.ActualCost);
+            PendingQuotes = quotes
+                .Count(q => q.StatusEnum == QuoteStatus.Draft || q.StatusEnum == QuoteStatus.Sent);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error calculating dashboard stats: {ex.Message}");
         }
     }
 }

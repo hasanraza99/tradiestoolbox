@@ -12,6 +12,10 @@
             <converters:JobStatusToColorConverter x:Key="JobStatusToColorConverter" />
             <converters:QuoteStatusToColorConverter x:Key="QuoteStatusToColorConverter" />
             <converters:AmountToColorConverter x:Key="AmountToColorConverter" />
+            <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
+            <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+            <converters:CurrencyConverter x:Key="CurrencyConverter" />
+            <converters:RelativeDateConverter x:Key="RelativeDateConverter" />
 
             <!-- Include global styles -->
             <ResourceDictionary.MergedDictionaries>

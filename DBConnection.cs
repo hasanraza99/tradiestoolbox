@@ -23,17 +23,16 @@ namespace TradiesToolbox.Data
         {
             if (_database == null)
             {
-                Console.WriteLine("Creating database connection");
                 _database = new SQLiteConnection(DatabasePath, Flags);
 
-                // Create all necessary tables
+                // Create tables
                 _database.CreateTable<Client>();
                 _database.CreateTable<User>();
                 _database.CreateTable<Job>();
                 _database.CreateTable<Quote>();
-
-                Console.WriteLine("Database tables created successfully");
+                _database.CreateTable<QuoteItem>();
             }
+
             return _database;
         }
     }

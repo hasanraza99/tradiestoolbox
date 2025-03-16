@@ -8,48 +8,101 @@
 
     <ScrollView>
         <StackLayout Padding="20" Spacing="15">
+            <!-- Client Selection -->
+            <Label Text="Client" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}" />
+            <Frame Padding="0" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                <Picker ItemsSource="{Binding Clients}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedClient}"
+                        Title="Select a client"
+                        Margin="10,0" />
+            </Frame>
+
             <!-- Job Title -->
-            <Label Text="Job Title" FontAttributes="Bold" />
-            <Entry Placeholder="Enter job title" Text="{Binding Job.Title}" />
+            <Label Text="Job Title" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}" />
+            <Frame Padding="0" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                <Entry Placeholder="Enter job title" 
+                       Text="{Binding Job.Title}" 
+                       Margin="10,0" />
+            </Frame>
 
             <!-- Description -->
-            <Label Text="Description" FontAttributes="Bold" />
-            <Editor Placeholder="Enter job description" Text="{Binding Job.Description}" HeightRequest="80" />
+            <Label Text="Description" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}" />
+            <Frame Padding="5" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                <Editor Placeholder="Enter job description" 
+                        Text="{Binding Job.Description}" 
+                        HeightRequest="100"
+                        AutoSize="TextChanges" />
+            </Frame>
 
             <!-- Location -->
-            <Label Text="Location" FontAttributes="Bold" />
-            <Entry Placeholder="Enter job location" Text="{Binding Job.Location}" />
+            <Label Text="Location" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}" />
+            <Frame Padding="0" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                <Entry Placeholder="Enter job location" 
+                       Text="{Binding Job.Location}" 
+                       Margin="10,0" />
+            </Frame>
 
             <!-- Scheduled Date -->
-            <Label Text="Scheduled Date" FontAttributes="Bold" />
-            <DatePicker Date="{Binding Job.ScheduledDate}" />
+            <Label Text="Scheduled Date" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}" />
+            <Frame Padding="5" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                <DatePicker Date="{Binding Job.ScheduledDate}" Format="D" />
+            </Frame>
 
             <!-- Duration -->
-            <Label Text="Duration (Hours:Minutes)" FontAttributes="Bold" />
-            <Grid ColumnDefinitions="*,*"
-                  ColumnSpacing="10">
-                <Entry Grid.Column="0" Placeholder="Hours" Keyboard="Numeric" Text="{Binding DurationHours}" />
-                <Entry Grid.Column="1" Placeholder="Minutes" Keyboard="Numeric" Text="{Binding DurationMinutes}" />
+            <Label Text="Duration (Hours:Minutes)" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Frame Grid.Column="0" Padding="0" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                    <Entry Placeholder="Hours" 
+                           Keyboard="Numeric" 
+                           Text="{Binding DurationHours}" 
+                           Margin="10,0" />
+                </Frame>
+                <Frame Grid.Column="1" Padding="0" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                    <Entry Placeholder="Minutes" 
+                           Keyboard="Numeric" 
+                           Text="{Binding DurationMinutes}" 
+                           Margin="10,0" />
+                </Frame>
             </Grid>
 
             <!-- Status -->
-            <Label Text="Job Status" FontAttributes="Bold" />
-            <Picker ItemsSource="{Binding AvailableStatuses}"
-                    SelectedItem="{Binding SelectedStatus}" />
+            <Label Text="Job Status" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}" />
+            <Frame Padding="0" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                <Picker ItemsSource="{Binding AvailableStatuses}"
+                        SelectedItem="{Binding SelectedStatus}"
+                        Margin="10,0" />
+            </Frame>
 
             <!-- Estimated Cost -->
-            <Label Text="Estimated Cost (£)" FontAttributes="Bold" />
-            <Entry Placeholder="0.00" Keyboard="Numeric" Text="{Binding Job.EstimatedCost}" />
+            <Label Text="Estimated Cost (£)" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}" />
+            <Frame Padding="0" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                <Entry Placeholder="0.00" 
+                       Keyboard="Numeric" 
+                       Text="{Binding Job.EstimatedCost}" 
+                       Margin="10,0" />
+            </Frame>
 
             <!-- Notes -->
-            <Label Text="Notes" FontAttributes="Bold" />
-            <Editor Placeholder="Enter additional notes" Text="{Binding Job.Notes}" HeightRequest="80" />
+            <Label Text="Notes" FontAttributes="Bold" Style="{StaticResource FieldLabelStyle}" />
+            <Frame Padding="5" CornerRadius="5" BorderColor="{StaticResource BorderColor}" HasShadow="False">
+                <Editor Placeholder="Enter additional notes" 
+                        Text="{Binding Job.Notes}" 
+                        HeightRequest="100"
+                        AutoSize="TextChanges" />
+            </Frame>
 
             <!-- Save and Cancel Buttons -->
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Button Text="Save" Command="{Binding SaveJobCommand}" BackgroundColor="#3E5C76" TextColor="White" />
-                <Button Text="Cancel" Command="{Binding CancelCommand}" BackgroundColor="Gray" TextColor="White" />
-            </StackLayout>
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="15" Margin="0,10,0,20">
+                <Button Grid.Column="0" 
+                        Text="Save" 
+                        Command="{Binding SaveJobCommand}" 
+                        Style="{StaticResource PrimaryButton}" />
+                <Button Grid.Column="1" 
+                        Text="Cancel" 
+                        Command="{Binding CancelCommand}" 
+                        Style="{StaticResource SecondaryButton}" />
+            </Grid>
         </StackLayout>
     </ScrollView>
 </ContentPage>

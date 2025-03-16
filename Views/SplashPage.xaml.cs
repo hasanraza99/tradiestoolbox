@@ -23,8 +23,8 @@ namespace TradiesToolbox.Views
                 // Ensure database connection is established
                 var dbConn = DBConnection.GetConnection();
 
-                // Wait for 2 seconds to simulate splash screen delay
-                await Task.Delay(2000);
+                // Wait for 3 seconds to allow splash animations to complete
+                await Task.Delay(3000);
 
                 // Check authentication status using Supabase
                 if (_supabaseService.IsAuthenticated())
