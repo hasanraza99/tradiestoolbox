@@ -20,40 +20,39 @@ namespace TradiesToolbox.Services
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
+                var application = Application.Current;
+                if (application == null) return;
 
-                // Remove any existing custom theme dictionaries
-                var customThemeDicts = mergedDictionaries
-                    .Where(dict => dict.ContainsKey("PrimaryColor"))
-                    .ToList();
-
-                foreach (var dict in customThemeDicts)
-                {
-                    mergedDictionaries.Remove(dict);
-                }
-
-                // Create a new theme dictionary
-                var themeDict = new ResourceDictionary();
+                // Set the app's theme mode
+                application.UserAppTheme = IsDarkModeEnabled ? AppTheme.Dark : AppTheme.Light;
 
                 if (IsDarkModeEnabled)
                 {
-                    // Dark theme colors
-                    themeDict["PrimaryColor"] = Color.FromArgb("#6A8CAF");
-                    themeDict["BackgroundColor"] = Color.FromArgb("#121212");
-                    themeDict["TextColor"] = Colors.White;
-                    themeDict["SecondaryTextColor"] = Color.FromArgb("#B0B0B0");
+                    // Apply dark theme colors
+                    application.Resources["PrimaryColor"] = Color.FromArgb("#BF4D11"); // Toolbox rust color
+                    application.Resources["PrimaryDarkColor"] = Color.FromArgb("#8C3A0D"); // Darker rust
+                    application.Resources["AccentColor"] = Color.FromArgb("#E5A553"); // Background amber
+                    application.Resources["BackgroundColor"] = Color.FromArgb("#1A1A1A"); // Near black
+                    application.Resources["TextColor"] = Color.FromArgb("#FFFFFF"); // White text
+                    application.Resources["TextSecondaryColor"] = Color.FromArgb("#E5A553"); // Amber for secondary text
+                    application.Resources["BorderColor"] = Color.FromArgb("#333333"); // Dark gray border
                 }
                 else
                 {
-                    // Light theme colors
-                    themeDict["PrimaryColor"] = Color.FromArgb("#3E5C76");
-                    themeDict["BackgroundColor"] = Colors.White;
-                    themeDict["TextColor"] = Colors.Black;
-                    themeDict["SecondaryTextColor"] = Color.FromArgb("#666666");
+                    // Apply light theme colors
+                    application.Resources["PrimaryColor"] = Color.FromArgb("#BF4D11"); // Toolbox rust color
+                    application.Resources["PrimaryDarkColor"] = Color.FromArgb("#8C3A0D"); // Darker rust
+                    application.Resources["AccentColor"] = Color.FromArgb("#E5A553"); // Background amber
+                    application.Resources["BackgroundColor"] = Color.FromArgb("#FCFAF5"); // Off-white background
+                    application.Resources["TextColor"] = Color.FromArgb("#111111"); // Near black text
+                    application.Resources["TextSecondaryColor"] = Color.FromArgb("#7D3109"); // Darker rust for secondary text
+                    application.Resources["BorderColor"] = Color.FromArgb("#E0D5C1"); // Light amber/beige border
                 }
 
-                // Add the new theme dictionary
-                mergedDictionaries.Add(themeDict);
+                // Set success/warning/danger colors to be consistent with the palette
+                application.Resources["SuccessColor"] = Color.FromArgb("#4D9E6A"); // Green with amber undertone
+                application.Resources["WarningColor"] = Color.FromArgb("#F0B541"); // Brighter amber
+                application.Resources["DangerColor"] = Color.FromArgb("#D83B01"); // Brighter rust
             });
         }
     }

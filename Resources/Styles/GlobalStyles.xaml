@@ -1,19 +1,31 @@
 ﻿<!-- GlobalStyles.xaml - Shared styles for the application -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <!-- Color definitions based on the Tradies Toolbox logo -->
+    <Color x:Key="PrimaryColor">#BF4D11</Color>
+    <!-- Toolbox rust/terracotta color -->
+    <Color x:Key="PrimaryDarkColor">#8C3A0D</Color>
+    <!-- Darker rust shade -->
+    <Color x:Key="AccentColor">#E5A553</Color>
+    <!-- Logo background amber/orange -->
+    <Color x:Key="BackgroundColor">#FCFAF5</Color>
+    <!-- Off-white with warm undertone -->
+    <Color x:Key="TextColor">#111111</Color>
+    <!-- Near black text -->
+    <Color x:Key="TextSecondaryColor">#7D3109</Color>
+    <!-- Darker rust for secondary text -->
+    <Color x:Key="BorderColor">#E0D5C1</Color>
+    <!-- Light amber/beige border -->
+    <Color x:Key="SurfaceColor">White</Color>
+    <!-- Pure white for cards/surfaces -->
 
-    <!-- Color definitions -->
-    <Color x:Key="PrimaryColor">#3E5C76</Color>
-    <Color x:Key="PrimaryDarkColor">#2D4A6A</Color>
-    <Color x:Key="AccentColor">#BF4011</Color>
-    <!-- Orange accent -->
-    <Color x:Key="BackgroundColor">White</Color>
-    <Color x:Key="TextColor">Black</Color>
-    <Color x:Key="TextSecondaryColor">#666666</Color>
-    <Color x:Key="BorderColor">#DDDDDD</Color>
-    <Color x:Key="SuccessColor">#28a745</Color>
-    <Color x:Key="WarningColor">#ffc107</Color>
-    <Color x:Key="DangerColor">#dc3545</Color>
+    <!-- Status & alert colors with logo-inspired tones -->
+    <Color x:Key="SuccessColor">#4D9E6A</Color>
+    <!-- Green with amber undertone -->
+    <Color x:Key="WarningColor">#F0B541</Color>
+    <!-- Brighter amber -->
+    <Color x:Key="DangerColor">#D83B01</Color>
+    <!-- Brighter rust/orange for alerts -->
 
     <!-- Button styles -->
     <Style x:Key="PrimaryButton" TargetType="Button">
@@ -33,11 +45,20 @@
         <Setter Property="Padding" Value="15,10" />
     </Style>
 
+    <Style x:Key="AccentButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+        <Setter Property="TextColor" Value="#111111" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="15,10" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
     <Style x:Key="DangerButton" TargetType="Button">
         <Setter Property="BackgroundColor" Value="{StaticResource DangerColor}" />
         <Setter Property="TextColor" Value="White" />
         <Setter Property="CornerRadius" Value="8" />
         <Setter Property="Padding" Value="15,10" />
+        <Setter Property="FontAttributes" Value="Bold" />
     </Style>
 
     <!-- Frame styles -->
@@ -45,8 +66,22 @@
         <Setter Property="Padding" Value="15" />
         <Setter Property="CornerRadius" Value="10" />
         <Setter Property="HasShadow" Value="True" />
-        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
         <Setter Property="BorderColor" Value="{StaticResource BorderColor}" />
+    </Style>
+
+    <Style x:Key="AccentFrame" TargetType="Frame">
+        <Setter Property="Padding" Value="15" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="HasShadow" Value="True" />
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+    </Style>
+
+    <Style x:Key="PrimaryFrame" TargetType="Frame">
+        <Setter Property="Padding" Value="15" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="HasShadow" Value="True" />
+        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
     </Style>
 
     <!-- Text styles -->
@@ -68,5 +103,28 @@
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="TextColor" Value="{StaticResource TextColor}" />
         <Setter Property="Margin" Value="0,0,0,5" />
+    </Style>
+
+    <Style x:Key="AccentText" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource AccentColor}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="PrimaryText" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <!-- Form and Input styles -->
+    <Style x:Key="FormEntryStyle" TargetType="Entry">
+        <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+        <Setter Property="PlaceholderColor" Value="#AAAAAA" />
+    </Style>
+
+    <Style x:Key="FormPickerStyle" TargetType="Picker">
+        <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+        <Setter Property="TitleColor" Value="#AAAAAA" />
     </Style>
 </ResourceDictionary>
