@@ -53,7 +53,20 @@ namespace TradiesToolbox.ViewModels
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Login Failed", ex.Message, "OK");
+                string userFriendlyMessage = "Login failed. Please check your email and password and try again.";
+
+               //specific types of errors for more granular error handling
+                if (ex.Message.Contains("Invalid login credentials"))
+                {
+                    userFriendlyMessage = "Invalid email or password. Please try again.";
+                }
+                else if (ex.Message.Contains("network") || ex.Message.Contains("connection"))
+                {
+                    userFriendlyMessage = "Could not connect to the server. Please check your internet connection.";
+                }
+
+                await Application.Current.MainPage.DisplayAlert("Login Failed", userFriendlyMessage, "OK");
+                Console.WriteLine($"Login error details: {ex.Message}"); // Log the actual error for debugging
             }
             finally
             {

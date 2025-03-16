@@ -55,28 +55,23 @@
             </Frame>
 
             <!-- Features Section -->
-            <Label Text="FEATURES" FontAttributes="Bold" Margin="10,15,0,5" />
+            <Label Text="FUTURE FEATURES" FontAttributes="Bold" Margin="10,15,0,5" />
             <Frame Padding="20" HasShadow="True" CornerRadius="10">
                 <StackLayout Spacing="15">
                     <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
                         <!-- Invoices -->
                         <Image Source="invoice_icon.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center" />
                         <Label Grid.Column="1" Text="Invoices" VerticalOptions="Center" Margin="15,0,0,0" />
-                        <Label Grid.Column="2" Text="Coming Soon" TextColor="Gray" FontSize="12" VerticalOptions="Center" />
-
-                        <BoxView Grid.ColumnSpan="3" Grid.Row="1" HeightRequest="1" Color="#EEEEEE" Margin="0,10" />
+                        <Label Grid.Column="2" Text="Coming Soon!" TextColor="Gray" FontSize="12" VerticalOptions="Center" />
 
                         <!-- Reports -->
                         <Image Grid.Row="2" Source="report_icon.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center" />
                         <Label Grid.Row="2" Grid.Column="1" Text="Reports" VerticalOptions="Center" Margin="15,0,0,0" />
-                        <Label Grid.Row="2" Grid.Column="2" Text="Coming Soon" TextColor="Gray" FontSize="12" VerticalOptions="Center" />
-
-                        <BoxView Grid.ColumnSpan="3" Grid.Row="3" HeightRequest="1" Color="#EEEEEE" Margin="0,10" />
+                        <Label Grid.Row="2" Grid.Column="2" Text="Coming Soon!" TextColor="Gray" FontSize="12" VerticalOptions="Center" />
 
                         <!-- Calendar -->
                         <Image Grid.Row="4" Source="calendar_icon.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center" />
                         <Label Grid.Row="4" Grid.Column="1" Text="Calendar" VerticalOptions="Center" Margin="15,0,0,0" />
-                        <Label Grid.Row="4" Grid.Column="2" Text="Coming Soon" TextColor="Gray" FontSize="12" VerticalOptions="Center" />
                     </Grid>
                 </StackLayout>
             </Frame>
@@ -85,8 +80,6 @@
             <Label Text="SUPPORT" FontAttributes="Bold" Margin="10,15,0,5" />
             <Frame Padding="20" HasShadow="True" CornerRadius="10">
                 <StackLayout Spacing="15">
-                    <Button Text="Help &amp; Support"
-                            Style="{StaticResource SecondaryButton}" />
                     <Button Text="Help &amp; Support"
                             Style="{StaticResource SecondaryButton}" />
                     <Button Text="About Tradies Toolbox"

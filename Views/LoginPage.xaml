@@ -19,7 +19,7 @@
         <Label
             Text="Tradies Toolbox"
             FontSize="28"
-            TextColor="DarkBlue"
+            TextColor="{StaticResource PrimaryColor}"
             HorizontalOptions="Center"
             FontAttributes="Bold"
             Margin="0,0,0,20" />
@@ -28,8 +28,8 @@
         <Frame
             Padding="10"
             CornerRadius="10"
-            HasShadow="True"
-            BorderColor="LightGray">
+            HasShadow="False"
+            BorderColor="{StaticResource BorderColor}">
             <Entry
                 Placeholder="Email"
                 Keyboard="Email"
@@ -40,8 +40,8 @@
         <Frame
             Padding="10"
             CornerRadius="8"
-            HasShadow="True"
-            BorderColor="LightGray">
+            HasShadow="False"
+            BorderColor="{StaticResource BorderColor}">
             <Entry
                 Placeholder="Password"
                 IsPassword="True"
@@ -51,9 +51,7 @@
         <!-- Login Button -->
         <Button
             Text="Login"
-            BackgroundColor="#3E5C76"
-            TextColor="White"
-            CornerRadius="8"
+            Style="{StaticResource PrimaryButton}"
             Margin="0,20,0,0"
             Command="{Binding LoginCommand}" />
 
@@ -61,8 +59,8 @@
         <Label HorizontalOptions="Center" Margin="0,15,0,0">
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="Don't have an account? " TextColor="Gray" />
-                    <Span Text="Register" TextColor="#3E5C76" FontAttributes="Bold">
+                    <Span Text="Don't have an account? " TextColor="{StaticResource TextSecondaryColor}" />
+                    <Span Text="Register" TextColor="{StaticResource PrimaryColor}" FontAttributes="Bold">
                         <Span.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding RegisterCommand}" />
                         </Span.GestureRecognizers>

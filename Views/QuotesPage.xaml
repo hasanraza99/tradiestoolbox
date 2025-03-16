@@ -12,7 +12,7 @@
             <Frame Grid.Column="0"
                    Padding="10,5"
                    CornerRadius="20"
-                   BorderColor="LightGray"
+                   BorderColor="{StaticResource BorderColor}"
                    HasShadow="False">
                 <Picker Title="All Statuses"
                         ItemsSource="{Binding StatusFilters}"
@@ -25,8 +25,7 @@
                     FontSize="18" 
                     FontAttributes="Bold"
                     Command="{Binding AddQuoteCommand}"
-                    BackgroundColor="#3E5C76"
-                    TextColor="White"
+                    Style="{StaticResource PrimaryButton}"
                     CornerRadius="20"
                     WidthRequest="40"
                     HeightRequest="40"
@@ -51,11 +50,11 @@
                                Margin="0,0,0,20"/>
                         <Label Text="No quotes found"
                                FontSize="18"
-                               TextColor="Gray"
+                               TextColor="{StaticResource TextSecondaryColor}"
                                HorizontalOptions="Center"/>
                         <Label Text="Create a new quote to get started"
                                FontSize="14"
-                               TextColor="Gray"
+                               TextColor="{StaticResource TextSecondaryColor}"
                                HorizontalOptions="Center"/>
                     </StackLayout>
                 </CollectionView.EmptyView>
@@ -64,7 +63,8 @@
                     <DataTemplate x:DataType="models:Quote">
                         <Frame Margin="20,10"
                                Padding="15"
-                               HasShadow="True"
+                               HasShadow="True" 
+                               BorderColor="{StaticResource BorderColor}"
                                CornerRadius="10">
                             <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto">
                                 <!-- Quote Number and Status -->
@@ -87,11 +87,11 @@
                                 <!-- Client and Job -->
                                 <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="5">
                                     <Label Text="{Binding ClientName}" 
-                                           TextColor="#3E5C76"
+                                           TextColor="{StaticResource PrimaryColor}"
                                            FontAttributes="Bold"/>
-                                    <Label Text="•" TextColor="Gray"/>
+                                    <Label Text="•" TextColor="{StaticResource TextSecondaryColor}"/>
                                     <Label Text="{Binding JobTitle}"
-                                           TextColor="Gray"/>
+                                           TextColor="{StaticResource TextSecondaryColor}"/>
                                 </StackLayout>
                             </Grid>
                         </Frame>

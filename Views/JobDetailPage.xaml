@@ -15,7 +15,7 @@
     <ScrollView>
         <StackLayout Padding="20" Spacing="15">
             <!-- Job Header -->
-            <Frame Padding="15" CornerRadius="10" HasShadow="True" BackgroundColor="#3E5C76">
+            <Frame Padding="15" CornerRadius="10" HasShadow="True" BackgroundColor="{StaticResource PrimaryColor}">
                 <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
                     <!-- Job Title -->
                     <Label Text="{Binding Job.Title}"
@@ -46,7 +46,7 @@
 
             <!-- Schedule Section -->
             <Label Text="SCHEDULE" FontAttributes="Bold" Margin="0,10,0,5" />
-            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+            <Frame Padding="15" CornerRadius="10" HasShadow="True" BorderColor="{StaticResource BorderColor}">
                 <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*">
                     <Image Source="calendar_icon.png"
                            WidthRequest="24" 
@@ -74,7 +74,7 @@
 
             <!-- Client Section -->
             <Label Text="CLIENT" FontAttributes="Bold" Margin="0,10,0,5" />
-            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+            <Frame Padding="15" CornerRadius="10" HasShadow="True" BorderColor="{StaticResource BorderColor}">
                 <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
                     <Label Text="{Binding Job.ClientName}"
                            FontSize="18"
@@ -82,11 +82,7 @@
                     <Button Grid.Column="1"
                             Text="View Client"
                             Command="{Binding ViewClientCommand}"
-                            BackgroundColor="Transparent"
-                            TextColor="#3E5C76"
-                            BorderColor="#3E5C76"
-                            BorderWidth="1"
-                            CornerRadius="5"
+                            Style="{StaticResource SecondaryButton}"
                             HeightRequest="30"
                             Padding="10,0" />
                 </Grid>
@@ -94,7 +90,7 @@
 
             <!-- Status Update Section -->
             <Label Text="UPDATE STATUS" FontAttributes="Bold" Margin="0,10,0,5" />
-            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+            <Frame Padding="15" CornerRadius="10" HasShadow="True" BorderColor="{StaticResource BorderColor}">
                 <StackLayout>
                     <Label Text="Current Status:" />
                     <Label Text="{Binding Job.StatusDisplay}" 
@@ -110,9 +106,7 @@
 
                     <Button Text="Update Status"
                             Command="{Binding UpdateStatusCommand}"
-                            BackgroundColor="#3E5C76"
-                            TextColor="White"
-                            CornerRadius="5"
+                            Style="{StaticResource PrimaryButton}"
                             IsEnabled="{Binding CanUpdateStatus}" />
                 </StackLayout>
             </Frame>

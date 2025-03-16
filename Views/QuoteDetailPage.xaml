@@ -14,7 +14,7 @@
     <ScrollView>
         <StackLayout Padding="20" Spacing="15">
             <!-- Quote Header -->
-            <Frame Padding="15" CornerRadius="10" HasShadow="True" BackgroundColor="#3E5C76">
+            <Frame Padding="15" CornerRadius="10" HasShadow="True" BackgroundColor="{StaticResource PrimaryColor}">
                 <StackLayout>
                     <Label Text="{Binding Quote.QuoteNumber}" 
                            FontSize="24"
@@ -29,30 +29,28 @@
 
             <!-- Quote Details -->
             <Label Text="QUOTE DETAILS" FontAttributes="Bold" Margin="0,10,0,5" />
-            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+            <Frame Padding="15" CornerRadius="10" HasShadow="True" BorderColor="{StaticResource BorderColor}">
                 <StackLayout>
                     <Label Text="{Binding Quote.JobTitle}" FontSize="18" FontAttributes="Bold" />
-                    <Label Text="{Binding Quote.JobDescription}" TextColor="Gray" />
+                    <Label Text="{Binding Quote.JobDescription}" TextColor="{StaticResource TextSecondaryColor}" />
                 </StackLayout>
             </Frame>
 
             <!-- Total Section -->
             <Label Text="TOTAL" FontAttributes="Bold" Margin="0,10,0,5" />
-            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+            <Frame Padding="15" CornerRadius="10" HasShadow="True" BorderColor="{StaticResource BorderColor}">
                 <StackLayout>
                     <Label Text="{Binding Quote.Total, StringFormat='£{0:N2}'}"
                            FontSize="18"
                            FontAttributes="Bold"
-                           TextColor="#3E5C76"/>
+                           TextColor="{StaticResource PrimaryColor}"/>
                 </StackLayout>
             </Frame>
 
             <!-- Action Button -->
             <Button Text="Send Quote"
                     Command="{Binding SendQuoteCommand}"
-                    BackgroundColor="#3E5C76"
-                    TextColor="White"
-                    CornerRadius="8"/>
+                    Style="{StaticResource PrimaryButton}"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

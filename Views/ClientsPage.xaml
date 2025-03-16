@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:TradiesToolbox.ViewModels"
@@ -12,7 +12,7 @@
             <Frame Grid.Column="0" 
                    Padding="15,0" 
                    CornerRadius="8" 
-                   BorderColor="LightGray"
+                   BorderColor="{StaticResource BorderColor}"
                    HasShadow="False">
                 <Grid ColumnDefinitions="Auto,*">
                     <!-- Search Icon -->
@@ -37,8 +37,7 @@
                     FontSize="18"
                     FontAttributes="Bold"
                     Command="{Binding AddClientCommand}"
-                    BackgroundColor="#3E5C76"
-                    TextColor="White"
+                    Style="{StaticResource PrimaryButton}"
                     CornerRadius="8"
                     WidthRequest="40"
                     HeightRequest="40"
@@ -64,11 +63,11 @@
                                Margin="0,0,0,20"/>
                         <Label Text="No clients found" 
                                FontSize="18"
-                               TextColor="Gray"
+                               TextColor="{StaticResource TextSecondaryColor}"
                                HorizontalOptions="Center"/>
                         <Label Text="Add your first client to get started"
                                FontSize="14"
-                               TextColor="Gray"
+                               TextColor="{StaticResource TextSecondaryColor}"
                                HorizontalOptions="Center"/>
                     </StackLayout>
                 </CollectionView.EmptyView>
@@ -81,7 +80,7 @@
                             <SwipeView.RightItems>
                                 <SwipeItems>
                                     <SwipeItem Text="Delete"
-                                              BackgroundColor="Red"
+                                              BackgroundColor="{StaticResource DangerColor}"
                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ClientsViewModel}}, Path=DeleteClientCommand}"
                                               CommandParameter="{Binding .}"/>
                                 </SwipeItems>
@@ -91,6 +90,7 @@
                             <Frame Margin="20,10"
                                    Padding="15"
                                    HasShadow="True"
+                                   BorderColor="{StaticResource BorderColor}"
                                    CornerRadius="10">
                                 <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
                                     <!-- Client Name -->
@@ -114,17 +114,17 @@
                                     <!-- Contact Info -->
                                     <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="15" Margin="0,5,0,0">
                                         <Label Text="{Binding Phone}"
-                                               TextColor="Gray"/>
+                                               TextColor="{StaticResource TextSecondaryColor}"/>
                                         <Label Text="|"
-                                               TextColor="LightGray"/>
+                                               TextColor="{StaticResource BorderColor}"/>
                                         <Label Text="{Binding Email}"
-                                               TextColor="Gray"/>
+                                               TextColor="{StaticResource TextSecondaryColor}"/>
                                     </StackLayout>
 
                                     <!-- Address -->
                                     <Label Grid.Row="2"
                                            Text="{Binding Address}"
-                                           TextColor="Gray"
+                                           TextColor="{StaticResource TextSecondaryColor}"
                                            FontSize="14"
                                            Margin="0,5,0,0"/>
 
