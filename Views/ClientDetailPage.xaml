@@ -5,11 +5,14 @@
              x:Class="TradiesToolbox.Views.ClientDetailPage"
              Title="{Binding Title}">
 
-    <!-- Toolbar with Edit Button -->
+    <!-- Toolbar with Edit and Delete Button -->
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Edit" 
-                     Command="{Binding EditCommand}" 
-                     IconImageSource="edit_icon.png" />
+                 Command="{Binding EditCommand}" 
+                 IconImageSource="edit_icon.png" />
+        <ToolbarItem Text="Delete" 
+                 Command="{Binding DeleteCommand}" 
+                 IconImageSource="delete_icon.png" />
     </ContentPage.ToolbarItems>
 
     <ScrollView>

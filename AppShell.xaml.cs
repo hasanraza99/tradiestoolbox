@@ -31,6 +31,8 @@ namespace TradiesToolbox
             Routing.RegisterRoute(nameof(AddQuotePage), typeof(AddQuotePage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage)); // Added login page
             Routing.RegisterRoute(nameof(DashboardPage), typeof(DashboardPage));
+            Routing.RegisterRoute(nameof(EditJobPage), typeof(EditJobPage));
+            Routing.RegisterRoute(nameof(EditClientPage), typeof(EditClientPage));
         }
 
         /// <summary>

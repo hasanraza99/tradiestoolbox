@@ -106,12 +106,10 @@ public class ClientDetailViewModel : BaseViewModel
         }
     }
 
-    // Navigation to edit client (stub)
     private async void OnEdit()
     {
-        await Application.Current.MainPage.DisplayAlert("Edit", "Navigate to Edit Client Page", "OK");
-        // Actual implementation would navigate to edit page
-        // await Shell.Current.GoToAsync($"{nameof(EditClientPage)}?id={Client.Id}");
+        // Navigate to the Edit Client page with the client ID
+        await Shell.Current.GoToAsync($"{nameof(EditClientPage)}?clientId={Client.Id}");
     }
 
     // Delete client after confirmation

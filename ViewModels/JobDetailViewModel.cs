@@ -116,13 +116,12 @@ namespace TradiesToolbox.ViewModels
             }
         }
 
-        // Navigate to edit job page (stub)
         private async void OnEdit()
         {
-            await Application.Current.MainPage.DisplayAlert("Edit", "Navigate to Edit Job Page", "OK");
-            // Actual implementation would navigate to edit page
-            // await Shell.Current.GoToAsync($"{nameof(EditJobPage)}?id={Job.JobID}");
+            // Navigate to the Edit Job page with the job ID
+            await Shell.Current.GoToAsync($"{nameof(EditJobPage)}?jobId={Job.JobID}");
         }
+
 
         // Delete the current job after confirmation
         private async void OnDelete()

@@ -8,8 +8,11 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Edit" 
-                     Command="{Binding EditCommand}" 
-                     IconImageSource="edit_icon.png" />
+                 Command="{Binding EditCommand}" 
+                 IconImageSource="edit_icon.png" />
+        <ToolbarItem Text="Delete" 
+                 Command="{Binding DeleteCommand}" 
+                 IconImageSource="delete_icon.png" />
     </ContentPage.ToolbarItems>
 
     <ScrollView>

@@ -90,9 +90,6 @@ namespace TradiesToolbox
                     Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
                 }
             }
-
-            // In a real app, you might want to log to a file or remote service here
-            // FileLogger.LogError(message, ex);
         }
     }
 }
