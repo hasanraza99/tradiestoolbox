@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TradiesToolbox")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+b4f674dd9f9a0ee015ae30d19040384d2e5916c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+b231b9e244a7f73c301c327370e2c24110461977")]
 [assembly: System.Reflection.AssemblyProductAttribute("TradiesToolbox")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TradiesToolbox")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
